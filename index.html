@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asesmen Literasi Numerasi Kelas VIII | SMPN 2 Kasimbar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .svg-container svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .option-card {
+      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .option-card:active {
+      transform: scale(0.99);
+    }
+    @keyframes pulse-border {
+      0%, 100% { border-color: #ef4444; }
+      50% { border-color: #fca5a5; }
+    }
+    .timer-warning {
+      animation: pulse-border 1.2s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-indigo-100 selection:text-indigo-900">
+
+  <!-- HEADER GLOBAL -->
+  <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-lg sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center shrink-0">
+          <svg class="w-6 h-6 text-indigo-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold tracking-tight leading-tight">ASESMEN LITERASI NUMERASI KELAS VIII</h1>
+          <p class="text-xs text-indigo-200/90">SMPN 2 Kasimbar &bull; Bilangan Berpangkat, Pythagoras &amp; PLSV/PtLSV</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Timer Display (tampil saat kuis aktif) -->
+        <div id="headerTimerBox" class="hidden items-center gap-2 bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-xl">
+          <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="timerDisplay" class="font-mono font-bold text-sm sm:text-base text-amber-300 tracking-wider">90:00</span>
+        </div>
+
+        <!-- Tombol Selesai & Kumpulkan di Header (tampil saat kuis aktif) -->
+        <button id="headerFinishBtn" type="button" class="hidden items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Selesai &amp; Kumpulkan</span>
+        </button>
+
+        <!-- Tombol Suara -->
+        <button id="soundToggleBtn" type="button" title="Suara Efek Klik" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 transition flex items-center gap-1.5 text-xs font-medium">
+          <svg id="soundOnIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+          <svg id="soundOffIcon" class="w-5 h-5 hidden text-rose-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+          </svg>
+          <span class="hidden lg:inline" id="soundLabel">Suara</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- KONTEN UTAMA -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ========================================================= -->
+    <!-- VIEW 1: HALAMAN AWAL / IDENTITAS SISWA                    -->
+    <!-- ========================================================= -->
+    <section id="startScreen" class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
+        <!-- Banner Atas -->
+        <div class="bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-600 p-6 sm:p-8 text-white">
+          <div class="inline-flex flex-wrap items-center gap-2 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold mb-3">
+            <span>SMPN 2 Kasimbar &bull; Kelas VIII / Fase D</span>
+            <span>&bull;</span>
+            <span>Alokasi Waktu: 90 Menit</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">
+            Paket Soal Literasi Numerasi Kelas VIII
+          </h2>
+          <p class="text-indigo-100 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Materi: <strong>Bilangan Berpangkat &amp; Bentuk Akar</strong>, <strong>Teorema Pythagoras</strong>, serta <strong>PLSV &amp; Pertidaksamaan Linear Satu Variabel</strong>.
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <!-- Petunjuk Pengerjaan -->
+          <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-5">
+            <h3 class="font-bold text-amber-900 flex items-center gap-2 text-sm sm:text-base mb-2.5">
+              <svg class="w-5 h-5 text-amber-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Petunjuk Pengerjaan Asesmen
+            </h3>
+            <ul class="text-xs sm:text-sm text-amber-900/90 space-y-1.5 list-disc list-inside leading-relaxed">
+              <li>Berdoalah sebelum mengerjakan, lalu isi <strong>Nama Lengkap</strong> dan pilih <strong>Kelas (VIIIA atau VIIIB)</strong>.</li>
+              <li><strong>Bagian A (Nomor 1–15):</strong> Pilihan Ganda Biasa &mdash; pilih <strong>SATU</strong> jawaban yang paling tepat.</li>
+              <li><strong>Bagian B (Nomor 16–30):</strong> Pilihan Ganda Kompleks &mdash; centang <strong>sesuai jumlah jawaban benar yang diminta</strong> pada setiap soal (2 atau 3 pernyataan).</li>
+              <li>Waktu pengerjaan adalah <strong>90 menit</strong>. Klik tombol mengambang <strong>Daftar Soal</strong> di pojok kanan bawah untuk berpindah nomor dengan cepat.</li>
+            </ul>
+          </div>
+
+          <!-- Form Identitas Siswa (Tanpa Nomor Absen, Kelas hanya VIIIA & VIIIB) -->
+          <form id="studentStartForm" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+              <div class="sm:col-span-7">
+                <label for="studentName" class="block text-sm font-bold text-slate-700 mb-1.5">Nama Lengkap Siswa <span class="text-rose-500">*</span></label>
+                <input type="text" id="studentName" required placeholder="Ketik nama lengkap kamu..."
+                  class="w-full px-4 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 outline-none transition text-slate-800 font-semibold text-base" />
+              </div>
+
+              <div class="sm:col-span-5">
+                <label class="block text-sm font-bold text-slate-700 mb-1.5">Pilih Kelas <span class="text-rose-500">*</span></label>
+                <div class="grid grid-cols-2 gap-3">
+                  <label class="cursor-pointer select-none">
+                    <input type="radio" name="studentClassRadio" value="VIIIA" required class="peer sr-only" />
+                    <div class="py-3.5 px-4 rounded-2xl border-2 border-slate-200 bg-slate-50 text-center font-extrabold text-slate-700 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white transition shadow-sm">
+                      VIIIA
+                    </div>
+                  </label>
+                  <label class="cursor-pointer select-none">
+                    <input type="radio" name="studentClassRadio" value="VIIIB" required class="peer sr-only" />
+                    <div class="py-3.5 px-4 rounded-2xl border-2 border-slate-200 bg-slate-50 text-center font-extrabold text-slate-700 peer-checked:border-indigo-600 peer-checked:bg-indigo-600 peer-checked:text-white transition shadow-sm">
+                      VIIIB
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tombol Mulai -->
+            <div class="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div class="text-xs sm:text-sm text-slate-500">
+                Total: <strong class="text-slate-700">30 Soal Bergambar</strong> (15 PG + 15 PG Kompleks)
+              </div>
+              <button type="submit"
+                class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-base shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2.5">
+                <span>Mulai Mengerjakan</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 2: AREA PENGERJAAN KUIS (16:9 WIDESCREEN FRIENDLY)   -->
+    <!-- ========================================================= -->
+    <section id="quizScreen" class="hidden max-w-5xl mx-auto pb-24">
+      <!-- Info Bar Peserta -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 px-4 py-3 mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-500">Peserta:</span>
+            <span id="displayStudentName" class="font-bold text-slate-900">-</span>
+          </div>
+          <span class="text-slate-300">|</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-500">Kelas:</span>
+            <span id="displayStudentClass" class="font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-lg border border-indigo-100">-</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-bold">
+          <span class="text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-xl">
+            Terjawab: <span id="answeredCountBadge">0</span>/30 Soal
+          </span>
+        </div>
+      </div>
+
+      <!-- KARTU SOAL AKTIF -->
+      <div class="bg-white rounded-3xl shadow-md border border-slate-200/90 p-5 sm:p-8">
+        <!-- Header Nomor & Kategori Soal -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-slate-100">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span id="qNumberBadge" class="px-4 py-1.5 rounded-xl bg-indigo-600 text-white font-extrabold text-sm sm:text-base shadow-sm">
+              Soal No. 1
+            </span>
+            <span id="qTypeBadge" class="px-3 py-1 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 font-semibold text-xs">
+              Bagian A &bull; Pilihan Ganda
+            </span>
+          </div>
+          <span id="qTopicBadge" class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-lg">
+            Bilangan Berpangkat &amp; Bentuk Akar
+          </span>
+        </div>
+
+        <!-- Tata Letak Widescreen 16:9 Friendly: Diagram & Teks Soal Sejajar di Layar Lebar -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mb-6">
+          <!-- Kolom Kiri (Diagram SVG) -->
+          <div id="qDiagramContainer" class="lg:col-span-5 svg-container bg-slate-50/90 border border-slate-200/80 rounded-2xl p-4 sm:p-5 flex items-center justify-center">
+            <!-- SVG dirender via JS -->
+          </div>
+
+          <!-- Kolom Kanan (Teks Pertanyaan & Opsi Jawaban) -->
+          <div class="lg:col-span-7 flex flex-col">
+            <div id="qTextContainer" class="text-slate-800 text-base sm:text-lg font-medium leading-relaxed mb-4">
+              <!-- Diisi via JS -->
+            </div>
+
+            <!-- Instruksi & Indikator Pilihan Khusus PG Kompleks -->
+            <div id="qComplexInstruction" class="hidden mb-4 px-4 py-2.5 rounded-xl bg-purple-50 border border-purple-200 text-purple-950 text-xs sm:text-sm font-bold flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-purple-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span id="qComplexInstructionText">Pilihlah DUA jawaban yang benar!</span>
+              </div>
+              <span id="qComplexCounterBadge" class="px-2.5 py-0.5 rounded-lg bg-purple-600 text-white text-xs font-extrabold">
+                Terpilih: 0/2
+              </span>
+            </div>
+
+            <!-- Daftar Opsi Jawaban (A - D) -->
+            <div id="qOptionsContainer" class="space-y-3">
+              <!-- Opsi dirender via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigasi Bawah Kartu Soal -->
+        <div class="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+          <button type="button" id="prevQuestionBtn"
+            class="px-4 sm:px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-40 disabled:pointer-events-none text-slate-700 font-semibold text-sm transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Sebelumnya</span>
+          </button>
+
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+            <!-- Tombol Ragu-ragu -->
+            <label class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 cursor-pointer select-none transition">
+              <input type="checkbox" id="doubtCheckbox" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-500 border-amber-400" />
+              <span class="text-xs sm:text-sm font-bold text-amber-800">Ragu-ragu</span>
+            </label>
+          </div>
+
+          <button type="button" id="nextQuestionBtn"
+            class="px-5 sm:px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition shadow-sm flex items-center gap-2">
+            <span id="nextBtnLabel">Selanjutnya</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- TOMBOL NAVIGASI SOAL MENGAMBANG (FLOATING PILL BUTTON) DI POJOK KANAN BAWAH -->
+      <div id="floatingNavWrapper" class="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-40">
+        <button type="button" id="floatingNavBtn"
+          class="px-5 py-3.5 rounded-full bg-slate-900 hover:bg-indigo-950 text-white font-bold text-xs sm:text-sm shadow-2xl border-2 border-indigo-400/50 transition-transform active:scale-95 flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          <span id="floatingNavLabel">Daftar Soal (0/30)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 3: HALAMAN HASIL, PENGIRIMAN SHEETS & PEMBAHASAN     -->
+    <!-- ========================================================= -->
+    <section id="resultScreen" class="hidden max-w-4xl mx-auto space-y-6">
+      <!-- Kartu Ringkasan Skor -->
+      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-900 to-blue-900 p-6 sm:p-8 text-white">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold mb-2">
+                ASESMEN SELESAI
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" id="resStudentName">Nama Siswa</h2>
+              <p class="text-indigo-200 text-sm mt-1">
+                Kelas: <strong id="resStudentClass" class="text-white">-</strong> &bull;
+                Durasi Pengerjaan: <strong id="resDuration" class="text-white">-</strong>
+              </p>
+            </div>
+
+            <!-- Nilai Akhir Besar -->
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-4 text-center shrink-0">
+              <span class="block text-xs uppercase tracking-wider text-indigo-200 font-semibold">Nilai Akhir (Skala 100)</span>
+              <span id="resFinalScore" class="block text-4xl sm:text-5xl font-black text-amber-300 mt-1">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <!-- Statistik Rinci -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center">
+              <span class="text-xs font-semibold text-slate-500 block">Bagian A (PG)</span>
+              <span class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-1 block"><span id="resScoreA">0</span> / 15</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center">
+              <span class="text-xs font-semibold text-slate-500 block">Bagian B (PGK)</span>
+              <span class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-1 block"><span id="resScoreB">0</span> / 15</span>
+            </div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-center">
+              <span class="text-xs font-semibold text-emerald-700 block">Total Benar</span>
+              <span class="text-xl sm:text-2xl font-extrabold text-emerald-700 mt-1 block"><span id="resTotalCorrect">0</span> / 30</span>
+            </div>
+            <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 text-center">
+              <span class="text-xs font-semibold text-indigo-700 block">Predikat</span>
+              <span id="resPredicate" class="text-base sm:text-lg font-extrabold text-indigo-800 mt-1.5 block">-</span>
+            </div>
+          </div>
+
+          <!-- Status Pengiriman ke Google Sheets -->
+          <div id="sheetsSyncBox" class="rounded-2xl border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-blue-50 border-blue-200">
+            <div class="flex items-start gap-3">
+              <div id="syncIconWrapper" class="mt-0.5 shrink-0">
+                <svg class="w-6 h-6 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 id="syncStatusTitle" class="font-bold text-sm sm:text-base text-slate-900">Mengirim hasil ke Spreadsheet...</h4>
+                <p id="syncStatusDesc" class="text-xs sm:text-sm text-slate-600 mt-0.5">Mohon tunggu sebentar, data sedang disinkronkan.</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 shrink-0">
+              <button type="button" id="retrySyncBtn" class="hidden px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold transition">
+                Kirim Ulang
+              </button>
+              <button type="button" id="downloadCsvBtn" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold transition flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Unduh CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tombol Aksi Bawah -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+            <button type="button" id="backToHomeBtn" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition">
+              &larr; Kembali ke Halaman Awal
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKSI REVIEW & PEMBAHASAN LENGKAP -->
+      <div id="reviewSection" class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg sm:text-xl font-extrabold text-slate-800">Kunci Jawaban &amp; Pembahasan Tiap Nomor</h3>
+          <span class="text-xs font-semibold text-slate-500">30 Butir Soal</span>
+        </div>
+        <div id="reviewListContainer" class="space-y-4">
+          <!-- Dirender via JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 px-4 text-center text-xs text-slate-500 mt-8">
+    &copy; 2026 SMPN 2 Kasimbar &bull; Asesmen Literasi Numerasi Kelas VIII
+  </footer>
+
+  <!-- ========================================================= -->
+  <!-- MODAL POP-UP NAVIGASI NOMOR SOAL (MENGAMBANG)             -->
+  <!-- ========================================================= -->
+  <div id="navPopupModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div id="navPopupBackdrop" class="absolute inset-0"></div>
+    <div class="relative bg-white rounded-t-3xl sm:rounded-3xl max-w-xl w-full max-h-[88vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden z-10">
+      <!-- Header Pop-up -->
+      <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between shrink-0">
+        <div>
+          <h3 class="font-extrabold text-base sm:text-lg">Daftar Nomor Soal (1–30)</h3>
+          <p class="text-xs text-indigo-200">Ketuk nomor soal untuk langsung menuju soal tersebut</p>
+        </div>
+        <button type="button" id="closeNavPopupBtn" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Body Pop-up -->
+      <div class="p-5 sm:p-6 overflow-y-auto space-y-5">
+        <!-- Legenda Status Warna -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-semibold text-slate-700 bg-slate-50 p-3 rounded-2xl border border-slate-200/80">
+          <div class="flex items-center gap-2">
+            <span class="w-3.5 h-3.5 rounded bg-emerald-500 inline-block shrink-0"></span>
+            <span>Sudah Dijawab</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3.5 h-3.5 rounded bg-amber-400 inline-block shrink-0"></span>
+            <span>Ragu-ragu</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3.5 h-3.5 rounded bg-indigo-600 inline-block shrink-0"></span>
+            <span>Soal Aktif</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3.5 h-3.5 rounded bg-slate-100 border border-slate-300 inline-block shrink-0"></span>
+            <span>Belum Dijawab</span>
+          </div>
+        </div>
+
+        <!-- Grid Bagian A -->
+        <div>
+          <div class="flex items-center justify-between mb-2.5">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Bagian A: Pilihan Ganda Biasa (No. 1–15)</p>
+          </div>
+          <div id="navGridPartA" class="grid grid-cols-5 gap-2.5">
+            <!-- Tombol 1-15 via JS -->
+          </div>
+        </div>
+
+        <!-- Grid Bagian B -->
+        <div class="pt-3 border-t border-slate-100">
+          <div class="flex items-center justify-between mb-2.5">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Bagian B: Pilihan Ganda Kompleks (No. 16–30)</p>
+          </div>
+          <div id="navGridPartB" class="grid grid-cols-5 gap-2.5">
+            <!-- Tombol 16-30 via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Pop-up: Tombol Selesai & Kumpulkan -->
+      <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+        <span class="text-xs font-bold text-slate-600">
+          Terjawab: <span id="popupAnsweredText" class="text-emerald-700">0 dari 30 soal</span>
+        </span>
+        <button type="button" id="finishQuizBtn"
+          class="w-full sm:w-auto py-3 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Selesai &amp; Kumpulkan</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL KONFIRMASI SELESAI (PENGGANTI window.confirm)       -->
+  <!-- ========================================================= -->
+  <div id="confirmModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+      <h3 id="confirmModalTitle" class="text-lg font-extrabold text-slate-900">Konfirmasi Selesai</h3>
+      <p id="confirmModalBody" class="text-sm text-slate-600 leading-relaxed">
+        Apakah kamu yakin ingin menyelesaikan asesmen dan mengirim jawaban sekarang?
+      </p>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button type="button" id="confirmCancelBtn" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition">
+          Batal
+        </button>
+        <button type="button" id="confirmOkBtn" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition">
+          Ya, Kumpulkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI RINGKAS -->
+  <div id="toastBanner" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 hidden bg-slate-900 text-white px-4 py-2.5 rounded-full shadow-xl border border-slate-700 text-xs sm:text-sm font-medium flex items-center gap-2">
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+    <span id="toastMessage">Tersimpan!</span>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT: KONFIGURASI GOOGLE APPS SCRIPT & LOGIKA KUIS   -->
+  <!-- ========================================================= -->
+  <script>
+    /**
+     * =========================================================================
+     * KONFIGURASI GURU: TEMPEL URL WEB APP GOOGLE APPS SCRIPT DI BAWAH INI
+     * =========================================================================
+     */
+    const GOOGLE_SCRIPT_URL = "TEMPEL_URL_WEB_APP_APPS_SCRIPT_DI_SINI";
+
+    /**
+     * 1. EFEK SUARA LEMBUT (WEB AUDIO API TANPA FILE EKSTERNAL)
+     */
+    const SoundFX = (function () {
+      let enabled = true;
+      let ctx = null;
+
+      function getCtx() {
+        if (!ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) ctx = new AudioCtx();
+        }
+        return ctx;
+      }
+
+      function playTone(freq, duration, type, gainVal) {
+        if (!enabled) return;
+        const dur = duration || 0.06;
+        const oscType = type || 'sine';
+        const gVal = gainVal || 0.06;
+        try {
+          const audioCtx = getCtx();
+          if (!audioCtx) return;
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = oscType;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+          gain.gain.setValueAtTime(gVal, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + dur);
+        } catch (e) {
+          // Abaikan jika audio diblokir browser
+        }
+      }
+
+      return {
+        click: function () { playTone(520, 0.05, 'sine', 0.05); },
+        select: function () { playTone(660, 0.07, 'triangle', 0.06); },
+        nav: function () { playTone(440, 0.05, 'sine', 0.04); },
+        success: function () {
+          playTone(523.25, 0.09, 'sine', 0.07);
+          setTimeout(function () { playTone(659.25, 0.09, 'sine', 0.07); }, 90);
+          setTimeout(function () { playTone(783.99, 0.16, 'sine', 0.08); }, 180);
+        },
+        toggle: function () {
+          enabled = !enabled;
+          return enabled;
+        },
+        isEnabled: function () { return enabled; }
+      };
+    })();
+
+    /**
+     * 2. GENERATOR ILUSTRASI SVG PRESISI UNTUK SEMUA 30 SOAL
+     */
+    const SVGs = {
+      1: '<svg viewBox="0 0 560 230" class="w-full">' +
+         '<g font-family="Inter, sans-serif" font-size="14" fill="#1e293b" font-weight="600">' +
+         '<text x="115" y="32" text-anchor="end">Awal</text>' +
+         '<text x="115" y="82" text-anchor="end">30 menit</text>' +
+         '<text x="115" y="132" text-anchor="end">60 menit</text>' +
+         '<text x="115" y="182" text-anchor="end">90 menit</text>' +
+         '</g>' +
+         '<g stroke="#64748b" stroke-width="2">' +
+         '<line x1="330" y1="28" x2="230" y2="78" /><line x1="330" y1="28" x2="430" y2="78" />' +
+         '<line x1="230" y1="78" x2="180" y2="128" /><line x1="230" y1="78" x2="280" y2="128" />' +
+         '<line x1="430" y1="78" x2="380" y2="128" /><line x1="430" y1="78" x2="480" y2="128" />' +
+         '<line x1="180" y1="128" x2="155" y2="178" /><line x1="180" y1="128" x2="205" y2="178" />' +
+         '<line x1="280" y1="128" x2="255" y2="178" /><line x1="280" y1="128" x2="305" y2="178" />' +
+         '<line x1="380" y1="128" x2="355" y2="178" /><line x1="380" y1="128" x2="405" y2="178" />' +
+         '<line x1="480" y1="128" x2="455" y2="178" /><line x1="480" y1="128" x2="505" y2="178" />' +
+         '</g>' +
+         '<g fill="#dcfce7" stroke="#1e293b" stroke-width="2.2">' +
+         '<circle cx="330" cy="28" r="13" />' +
+         '<circle cx="230" cy="78" r="11" /><circle cx="430" cy="78" r="11" />' +
+         '<circle cx="180" cy="128" r="9" /><circle cx="280" cy="128" r="9" />' +
+         '<circle cx="380" cy="128" r="9" /><circle cx="480" cy="128" r="9" />' +
+         '<circle cx="155" cy="178" r="7" /><circle cx="205" cy="178" r="7" />' +
+         '<circle cx="255" cy="178" r="7" /><circle cx="305" cy="178" r="7" />' +
+         '<circle cx="355" cy="178" r="7" /><circle cx="405" cy="178" r="7" />' +
+         '<circle cx="455" cy="178" r="7" /><circle cx="505" cy="178" r="7" />' +
+         '</g>' +
+         '<text x="330" y="216" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-style="italic" fill="#334155">dan seterusnya, setiap 30 menit tiap sel membelah menjadi dua</text>' +
+         '</svg>',
+
+      2: '<svg viewBox="0 0 420 245" class="w-full">' +
+         '<defs><marker id="arrDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" /></marker></defs>' +
+         '<g stroke="#1e293b" stroke-width="2.5">' +
+         '<line x1="210" y1="30" x2="210" y2="180" /><line x1="135" y1="105" x2="285" y2="105" />' +
+         '<line x1="157" y1="52" x2="263" y2="158" /><line x1="263" y1="52" x2="157" y2="158" />' +
+         '<line x1="181" y1="36" x2="239" y2="174" /><line x1="239" y1="36" x2="181" y2="174" />' +
+         '<line x1="141" y1="76" x2="279" y2="134" /><line x1="279" y1="76" x2="141" y2="134" />' +
+         '</g>' +
+         '<g fill="#e11d48" stroke="#1e293b" stroke-width="1.8">' +
+         '<circle cx="210" cy="30" r="5.5" /><circle cx="210" cy="180" r="5.5" />' +
+         '<circle cx="135" cy="105" r="5.5" /><circle cx="285" cy="105" r="5.5" />' +
+         '<circle cx="157" cy="52" r="5.5" /><circle cx="263" cy="158" r="5.5" />' +
+         '<circle cx="263" cy="52" r="5.5" /><circle cx="157" cy="158" r="5.5" />' +
+         '<circle cx="181" cy="36" r="5.5" /><circle cx="239" cy="174" r="5.5" />' +
+         '<circle cx="239" cy="36" r="5.5" /><circle cx="181" cy="174" r="5.5" />' +
+         '<circle cx="141" cy="76" r="5.5" /><circle cx="279" cy="134" r="5.5" />' +
+         '<circle cx="279" cy="76" r="5.5" /><circle cx="141" cy="134" r="5.5" />' +
+         '</g>' +
+         '<circle cx="210" cy="105" r="54" fill="#ffe4e6" stroke="#1e293b" stroke-width="3" />' +
+         '<line x1="162" y1="105" x2="258" y2="105" stroke="#1e293b" stroke-width="2.2" marker-start="url(#arrDark)" marker-end="url(#arrDark)" />' +
+         '<text x="210" y="96" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-style="italic" font-weight="700" fill="#1e293b">d</text>' +
+         '<text x="210" y="224" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#0f172a">Diameter virus = 0,00000012 meter</text>' +
+         '</svg>',
+
+      3: '<svg viewBox="0 0 300 220" class="w-full">' +
+         '<rect x="85" y="42" width="135" height="135" fill="#eff6ff" stroke="#1e293b" stroke-width="3" />' +
+         '<text x="152" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-style="italic" font-weight="700" fill="#1e293b">s</text>' +
+         '<text x="66" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-style="italic" font-weight="700" fill="#1e293b">s</text>' +
+         '<text x="152" y="116" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#0f172a">Luas = 50 cm²</text>' +
+         '</svg>',
+
+      4: '<svg viewBox="0 0 500 175" class="w-full">' +
+         '<text x="175" y="34" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#0f172a">Pita 1: 3√12 cm</text>' +
+         '<text x="385" y="34" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#0f172a">Pita 2: 2√3 cm</text>' +
+         '<rect x="45" y="52" width="265" height="44" fill="#dbeafe" stroke="#1e293b" stroke-width="2.5" />' +
+         '<rect x="310" y="52" width="145" height="44" fill="#ffedd5" stroke="#1e293b" stroke-width="2.5" />' +
+         '<path d="M 45 108 L 45 122 L 455 122 L 455 108" fill="none" stroke="#1e293b" stroke-width="2.5" />' +
+         '<text x="250" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1e293b">Panjang total setelah disambung = ?</text>' +
+         '</svg>',
+
+      5: '<svg viewBox="0 0 320 245" class="w-full">' +
+         '<g stroke="#64748b" stroke-width="2" stroke-dasharray="5,5" fill="none">' +
+         '<line x1="125" y1="30" x2="125" y2="155" /><line x1="75" y1="195" x2="125" y2="155" /><line x1="125" y1="155" x2="265" y2="155" />' +
+         '</g>' +
+         '<polygon points="75,70 215,70 215,195 75,195" fill="#eff6ff" fill-opacity="0.75" stroke="#1e293b" stroke-width="2.5" />' +
+         '<polygon points="75,70 125,30 265,30 215,70" fill="#dbeafe" fill-opacity="0.85" stroke="#1e293b" stroke-width="2.5" />' +
+         '<polygon points="215,70 265,30 265,155 215,195" fill="#bfdbfe" fill-opacity="0.85" stroke="#1e293b" stroke-width="2.5" />' +
+         '<text x="64" y="138" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">2³ cm</text>' +
+         '<text x="145" y="222" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">2³ cm</text>' +
+         '</svg>',
+
+      6: '<svg viewBox="0 0 320 270" class="w-full">' +
+         '<defs><marker id="arr6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" /></marker></defs>' +
+         '<rect x="55" y="20" width="38" height="205" fill="#d99b82" stroke="#1e293b" stroke-width="2.5" />' +
+         '<g stroke="#b8775e" stroke-width="1.5">' +
+         '<line x1="55" y1="45" x2="93" y2="45" /><line x1="55" y1="70" x2="93" y2="70" />' +
+         '<line x1="55" y1="95" x2="93" y2="95" /><line x1="55" y1="120" x2="93" y2="120" />' +
+         '<line x1="55" y1="145" x2="93" y2="145" /><line x1="55" y1="170" x2="93" y2="170" />' +
+         '<line x1="55" y1="195" x2="93" y2="195" />' +
+         '</g>' +
+         '<line x1="45" y1="225" x2="275" y2="225" stroke="#1e293b" stroke-width="3" />' +
+         '<polyline points="93,210 108,210 108,225" fill="none" stroke="#1e293b" stroke-width="2" />' +
+         '<line x1="93" y1="42" x2="225" y2="225" stroke="#78350f" stroke-width="6.5" stroke-linecap="round" />' +
+         '<g stroke="#78350f" stroke-width="3">' +
+         '<line x1="108" y1="72" x2="124" y2="66" /><line x1="130" y1="102" x2="146" y2="96" />' +
+         '<line x1="152" y1="132" x2="168" y2="126" /><line x1="174" y1="162" x2="190" y2="156" />' +
+         '<line x1="196" y1="192" x2="212" y2="186" />' +
+         '</g>' +
+         '<line x1="74" y1="46" x2="74" y2="220" stroke="#1e293b" stroke-width="1.8" marker-start="url(#arr6)" marker-end="url(#arr6)" />' +
+         '<rect x="61" y="114" width="26" height="36" fill="#d99b82" />' +
+         '<text x="74" y="137" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#0f172a" transform="rotate(-90 74 137)">t = ?</text>' +
+         '<line x1="98" y1="242" x2="220" y2="242" stroke="#1e293b" stroke-width="1.8" marker-start="url(#arr6)" marker-end="url(#arr6)" />' +
+         '<text x="159" y="263" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">5 m</text>' +
+         '<text x="182" y="118" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#0f172a">13 m</text>' +
+         '</svg>',
+
+      7: '<svg viewBox="0 0 540 270" class="w-full">' +
+         '<g><polygon points="75,95 110,32 205,95" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+         '<text x="82" y="62" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">6 cm</text>' +
+         '<text x="165" y="58" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">8 cm</text>' +
+         '<text x="140" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">11 cm</text>' +
+         '<text x="140" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">(A)</text></g>' +
+         '<g><polygon points="335,95 378,30 465,95" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+         '<text x="348" y="62" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">5 cm</text>' +
+         '<text x="428" y="58" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">12 cm</text>' +
+         '<text x="400" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">13 cm</text>' +
+         '<text x="400" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">(B)</text></g>' +
+         '<g><polygon points="75,215 162,155 205,215" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+         '<text x="112" y="180" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">7 cm</text>' +
+         '<text x="190" y="182" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">9 cm</text>' +
+         '<text x="140" y="234" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">12 cm</text>' +
+         '<text x="140" y="254" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">(C)</text></g>' +
+         '<g><polygon points="335,215 395,152 465,215" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+         '<text x="358" y="180" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">8 cm</text>' +
+         '<text x="436" y="180" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">9 cm</text>' +
+         '<text x="400" y="234" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">15 cm</text>' +
+         '<text x="400" y="254" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">(D)</text></g>' +
+         '</svg>',
+
+      8: '<svg viewBox="0 0 360 360" class="w-full">' +
+         '<g stroke="#cbd5e1" stroke-width="1">' +
+         '<line x1="50" y1="17" x2="302" y2="17" /><line x1="50" y1="45" x2="302" y2="45" />' +
+         '<line x1="50" y1="73" x2="302" y2="73" /><line x1="50" y1="101" x2="302" y2="101" />' +
+         '<line x1="50" y1="129" x2="302" y2="129" /><line x1="50" y1="157" x2="302" y2="157" />' +
+         '<line x1="50" y1="185" x2="302" y2="185" /><line x1="50" y1="213" x2="302" y2="213" />' +
+         '<line x1="50" y1="241" x2="302" y2="241" /><line x1="50" y1="269" x2="302" y2="269" />' +
+         '<line x1="50" y1="297" x2="302" y2="297" />' +
+         '<line x1="78" y1="17" x2="78" y2="325" /><line x1="106" y1="17" x2="106" y2="325" />' +
+         '<line x1="134" y1="17" x2="134" y2="325" /><line x1="162" y1="17" x2="162" y2="325" />' +
+         '<line x1="190" y1="17" x2="190" y2="325" /><line x1="218" y1="17" x2="218" y2="325" />' +
+         '<line x1="246" y1="17" x2="246" y2="325" /><line x1="274" y1="17" x2="274" y2="325" />' +
+         '<line x1="302" y1="17" x2="302" y2="325" />' +
+         '</g>' +
+         '<line x1="50" y1="17" x2="50" y2="325" stroke="#0f172a" stroke-width="2.2" />' +
+         '<line x1="50" y1="325" x2="302" y2="325" stroke="#0f172a" stroke-width="2.2" />' +
+         '<g font-family="Inter, sans-serif" font-size="11" fill="#334155" font-weight="600">' +
+         '<text x="50" y="342" text-anchor="middle">0</text><text x="78" y="342" text-anchor="middle">1</text>' +
+         '<text x="106" y="342" text-anchor="middle">2</text><text x="134" y="342" text-anchor="middle">3</text>' +
+         '<text x="162" y="342" text-anchor="middle">4</text><text x="190" y="342" text-anchor="middle">5</text>' +
+         '<text x="218" y="342" text-anchor="middle">6</text><text x="246" y="342" text-anchor="middle">7</text>' +
+         '<text x="274" y="342" text-anchor="middle">8</text><text x="302" y="342" text-anchor="middle">9</text>' +
+         '<text x="41" y="301" text-anchor="end">1</text><text x="41" y="273" text-anchor="end">2</text>' +
+         '<text x="41" y="245" text-anchor="end">3</text><text x="41" y="217" text-anchor="end">4</text>' +
+         '<text x="41" y="189" text-anchor="end">5</text><text x="41" y="161" text-anchor="end">6</text>' +
+         '<text x="41" y="133" text-anchor="end">7</text><text x="41" y="105" text-anchor="end">8</text>' +
+         '<text x="41" y="77" text-anchor="end">9</text><text x="41" y="49" text-anchor="end">10</text>' +
+         '<text x="41" y="21" text-anchor="end">11</text>' +
+         '</g>' +
+         '<line x1="78" y1="269" x2="246" y2="45" stroke="#2563eb" stroke-width="3.5" />' +
+         '<circle cx="78" cy="269" r="6" fill="#e11d48" /><circle cx="246" cy="45" r="6" fill="#e11d48" />' +
+         '<text x="86" y="290" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#0f172a">A(1, 2)</text>' +
+         '<text x="246" y="30" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#0f172a">B(7, 10)</text>' +
+         '</svg>',
+
+      9: '<svg viewBox="0 0 460 190" class="w-full">' +
+         '<rect x="75" y="25" width="340" height="115" fill="#dcfce7" stroke="#1e293b" stroke-width="3" />' +
+         '<line x1="245" y1="25" x2="245" y2="140" stroke="#ffffff" stroke-width="2.5" />' +
+         '<circle cx="245" cy="82.5" r="24" fill="none" stroke="#ffffff" stroke-width="2.5" />' +
+         '<line x1="75" y1="25" x2="415" y2="140" stroke="#e11d48" stroke-width="3.5" stroke-dasharray="10,7" />' +
+         '<rect x="275" y="65" width="102" height="24" rx="4" fill="#ffffff" fill-opacity="0.92" />' +
+         '<text x="326" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#e11d48">jalur lari = ?</text>' +
+         '<text x="62" y="88" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">7 m</text>' +
+         '<text x="245" y="168" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">24 m</text>' +
+         '</svg>',
+
+      10: '<svg viewBox="0 0 360 215" class="w-full">' +
+          '<polygon points="80,165 180,35 280,165" fill="#eff6ff" stroke="#1e293b" stroke-width="3" />' +
+          '<text x="115" y="96" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">10 cm</text>' +
+          '<text x="245" y="96" text-anchor="start" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">10 cm</text>' +
+          '<text x="180" y="194" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">12 cm</text>' +
+          '</svg>',
+
+      11: '<svg viewBox="0 0 480 185" class="w-full">' +
+          '<polygon points="215,165 240,115 265,165" fill="#cbd5e1" stroke="#1e293b" stroke-width="2.5" />' +
+          '<line x1="240" y1="45" x2="240" y2="115" stroke="#1e293b" stroke-width="4" />' +
+          '<line x1="105" y1="45" x2="375" y2="45" stroke="#1e293b" stroke-width="6" stroke-linecap="round" />' +
+          '<circle cx="240" cy="45" r="7" fill="#0f172a" />' +
+          '<line x1="105" y1="45" x2="55" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<line x1="105" y1="45" x2="155" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<polygon points="35,95 175,95 162,106 48,106" fill="#93c5fd" stroke="#1e293b" stroke-width="2" />' +
+          '<rect x="44" y="57" width="38" height="38" rx="6" fill="#fed7aa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="63" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-style="italic" font-weight="800" fill="#0f172a">x</text>' +
+          '<rect x="85" y="57" width="38" height="38" rx="6" fill="#fed7aa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="104" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-style="italic" font-weight="800" fill="#0f172a">x</text>' +
+          '<rect x="126" y="66" width="42" height="29" fill="#94a3b8" stroke="#1e293b" stroke-width="2" />' +
+          '<text x="147" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#ffffff">5 kg</text>' +
+          '<line x1="375" y1="45" x2="325" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<line x1="375" y1="45" x2="425" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<polygon points="305,95 445,95 432,106 318,106" fill="#93c5fd" stroke="#1e293b" stroke-width="2" />' +
+          '<rect x="352" y="64" width="46" height="31" fill="#94a3b8" stroke="#1e293b" stroke-width="2" />' +
+          '<text x="375" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#ffffff">17 kg</text>' +
+          '</svg>',
+
+      12: '<svg viewBox="0 0 420 200" class="w-full">' +
+          '<rect x="130" y="45" width="235" height="120" fill="#eff6ff" stroke="#1e293b" stroke-width="3" />' +
+          '<text x="247" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">(2x + 3) cm</text>' +
+          '<text x="116" y="110" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">(x + 1) cm</text>' +
+          '<text x="247" y="112" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#0f172a">Keliling = 38 cm</text>' +
+          '</svg>',
+
+      13: '<svg viewBox="0 0 480 110" class="w-full">' +
+          '<defs><marker id="arrAxis" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" /></marker>' +
+          '<marker id="arrRed" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#e11d48" /></marker></defs>' +
+          '<line x1="35" y1="45" x2="445" y2="45" stroke="#1e293b" stroke-width="2.5" marker-start="url(#arrAxis)" marker-end="url(#arrAxis)" />' +
+          '<g stroke="#1e293b" stroke-width="2">' +
+          '<line x1="60" y1="37" x2="60" y2="53" /><line x1="105" y1="37" x2="105" y2="53" />' +
+          '<line x1="150" y1="37" x2="150" y2="53" /><line x1="195" y1="37" x2="195" y2="53" />' +
+          '<line x1="240" y1="37" x2="240" y2="53" /><line x1="285" y1="37" x2="285" y2="53" />' +
+          '<line x1="330" y1="37" x2="330" y2="53" /><line x1="375" y1="37" x2="375" y2="53" />' +
+          '<line x1="420" y1="37" x2="420" y2="53" />' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">' +
+          '<text x="60" y="76">0</text><text x="105" y="76">1</text><text x="150" y="76">2</text>' +
+          '<text x="195" y="76">3</text><text x="240" y="76">4</text><text x="285" y="76">5</text>' +
+          '<text x="330" y="76">6</text><text x="375" y="76">7</text><text x="420" y="76">8</text>' +
+          '</g>' +
+          '<line x1="247" y1="45" x2="426" y2="45" stroke="#e11d48" stroke-width="5" marker-end="url(#arrRed)" />' +
+          '<circle cx="240" cy="45" r="7" fill="#ffffff" stroke="#e11d48" stroke-width="3.2" />' +
+          '</svg>',
+
+      14: '<svg viewBox="0 0 380 295" class="w-full">' +
+          '<rect x="42" y="12" width="296" height="36" rx="8" fill="#fef9c3" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="190" y="35" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#0f172a">KAPASITAS MAKSIMUM 500 kg</text>' +
+          '<rect x="35" y="60" width="310" height="220" fill="#f1f5f9" stroke="#1e293b" stroke-width="3" />' +
+          '<line x1="190" y1="60" x2="190" y2="280" stroke="#94a3b8" stroke-width="1.5" />' +
+          '<circle cx="80" cy="110" r="18" fill="#fed7aa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<rect x="62" y="130" width="36" height="86" fill="#60a5fa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="80" y="242" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a">Pak Dani</text>' +
+          '<text x="80" y="260" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a">60 kg</text>' +
+          '<g fill="#fed7aa" stroke="#1e293b" stroke-width="2.2">' +
+          '<rect x="138" y="218" width="42" height="42" /><rect x="192" y="218" width="42" height="42" />' +
+          '<rect x="244" y="218" width="42" height="42" /><rect x="294" y="218" width="42" height="42" />' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#0f172a" text-anchor="middle">' +
+          '<text x="159" y="244">x kg</text><text x="213" y="244">x kg</text>' +
+          '<text x="265" y="244">x kg</text><text x="315" y="244">x kg</text>' +
+          '</g>' +
+          '</svg>',
+
+      15: '<svg viewBox="0 0 420 205" class="w-full">' +
+          '<rect x="25" y="15" width="370" height="175" rx="12" fill="#fef9c3" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="210" y="45" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#0f172a">SEWA MOBIL</text>' +
+          '<line x1="40" y1="58" x2="380" y2="58" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="5,4" />' +
+          '<text x="45" y="88" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Biaya tetap: Rp150.000</text>' +
+          '<text x="45" y="116" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Tambahan: Rp25.000 per jam</text>' +
+          '<line x1="40" y1="142" x2="380" y2="142" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="5,4" />' +
+          '<text x="45" y="170" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#0f172a">Anggaran maksimum: Rp400.000</text>' +
+          '</svg>',
+
+      16: '<svg viewBox="0 0 460 270" class="w-full">' +
+          '<g stroke="#cbd5e1" stroke-width="1.2">' +
+          '<line x1="75" y1="180" x2="425" y2="180" /><line x1="75" y1="140" x2="425" y2="140" />' +
+          '<line x1="75" y1="100" x2="425" y2="100" /><line x1="75" y1="60" x2="425" y2="60" />' +
+          '</g>' +
+          '<line x1="75" y1="25" x2="75" y2="220" stroke="#0f172a" stroke-width="2" />' +
+          '<line x1="75" y1="220" x2="425" y2="220" stroke="#0f172a" stroke-width="2" />' +
+          '<g font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#334155" text-anchor="end">' +
+          '<text x="66" y="224">0</text><text x="66" y="184">10</text>' +
+          '<text x="66" y="144">20</text><text x="66" y="104">30</text><text x="66" y="64">40</text>' +
+          '</g>' +
+          '<text x="24" y="125" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a" transform="rotate(-90 24 125)">Jumlah bakteri</text>' +
+          '<g fill="#86efac" stroke="#1e293b" stroke-width="2.2">' +
+          '<rect x="95" y="200" width="55" height="20" /><rect x="180" y="180" width="55" height="40" />' +
+          '<rect x="265" y="140" width="55" height="80" /><rect x="350" y="60" width="55" height="160" />' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">' +
+          '<text x="122.5" y="193">5</text><text x="207.5" y="173">10</text>' +
+          '<text x="292.5" y="133">20</text><text x="377.5" y="53">40</text>' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">' +
+          '<text x="122.5" y="238">0</text><text x="207.5" y="238">1</text>' +
+          '<text x="292.5" y="238">2</text><text x="377.5" y="238">3</text>' +
+          '</g>' +
+          '<text x="250" y="260" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a">Waktu pengamatan (jam ke-)</text>' +
+          '</svg>',
+
+      17: '<svg viewBox="0 0 320 245" class="w-full">' +
+          '<g stroke="#64748b" stroke-width="2" stroke-dasharray="5,5" fill="none">' +
+          '<line x1="125" y1="30" x2="125" y2="155" /><line x1="75" y1="195" x2="125" y2="155" /><line x1="125" y1="155" x2="265" y2="155" />' +
+          '</g>' +
+          '<polygon points="75,70 215,70 215,195 75,195" fill="#eff6ff" fill-opacity="0.75" stroke="#1e293b" stroke-width="2.5" />' +
+          '<polygon points="75,70 125,30 265,30 215,70" fill="#dbeafe" fill-opacity="0.85" stroke="#1e293b" stroke-width="2.5" />' +
+          '<polygon points="215,70 265,30 265,155 215,195" fill="#bfdbfe" fill-opacity="0.85" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="64" y="138" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">3² cm</text>' +
+          '<text x="145" y="222" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">3² cm</text>' +
+          '</svg>',
+
+      18: '<svg viewBox="0 0 300 220" class="w-full">' +
+          '<rect x="85" y="42" width="135" height="135" fill="#eff6ff" stroke="#1e293b" stroke-width="3" />' +
+          '<text x="152" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-style="italic" font-weight="700" fill="#1e293b">s</text>' +
+          '<text x="66" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-style="italic" font-weight="700" fill="#1e293b">s</text>' +
+          '<text x="152" y="116" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#0f172a">Luas = 72 cm²</text>' +
+          '</svg>',
+
+      19: '<svg viewBox="0 0 500 125" class="w-full">' +
+          '<defs><marker id="arr19" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" /></marker></defs>' +
+          '<line x1="35" y1="68" x2="465" y2="68" stroke="#1e293b" stroke-width="2.5" marker-start="url(#arr19)" marker-end="url(#arr19)" />' +
+          '<g stroke="#1e293b" stroke-width="2">' +
+          '<line x1="60" y1="60" x2="60" y2="76" /><line x1="114" y1="60" x2="114" y2="76" />' +
+          '<line x1="168" y1="60" x2="168" y2="76" /><line x1="222" y1="60" x2="222" y2="76" />' +
+          '<line x1="276" y1="60" x2="276" y2="76" /><line x1="330" y1="60" x2="330" y2="76" />' +
+          '<line x1="384" y1="60" x2="384" y2="76" /><line x1="438" y1="60" x2="438" y2="76" />' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">' +
+          '<text x="60" y="98">0</text><text x="114" y="98">1</text><text x="168" y="98">2</text><text x="222" y="98">3</text>' +
+          '<text x="276" y="98">4</text><text x="330" y="98">5</text><text x="384" y="98">6</text><text x="438" y="98">7</text>' +
+          '</g>' +
+          '<g fill="#e11d48" stroke="#1e293b" stroke-width="2">' +
+          '<circle cx="181" cy="68" r="6.5" /><circle cx="231" cy="68" r="6.5" />' +
+          '<circle cx="301" cy="68" r="6.5" /><circle cx="356" cy="68" r="6.5" />' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#e11d48" text-anchor="middle">' +
+          '<text x="181" y="42">√5</text><text x="231" y="42">√10</text>' +
+          '<text x="301" y="42">√20</text><text x="356" y="42">√30</text>' +
+          '</g>' +
+          '</svg>',
+
+      20: '<svg viewBox="0 0 460 220" class="w-full">' +
+          '<rect x="20" y="15" width="420" height="190" fill="#fefce8" stroke="#1e293b" stroke-width="2" />' +
+          '<rect x="20" y="15" width="420" height="40" fill="#dbeafe" stroke="#1e293b" stroke-width="2" />' +
+          '<line x1="230" y1="15" x2="230" y2="205" stroke="#1e293b" stroke-width="2" />' +
+          '<line x1="20" y1="92" x2="440" y2="92" stroke="#1e293b" stroke-width="1.5" />' +
+          '<line x1="20" y1="130" x2="440" y2="130" stroke="#1e293b" stroke-width="1.5" />' +
+          '<line x1="20" y1="168" x2="440" y2="168" stroke="#1e293b" stroke-width="1.5" />' +
+          '<g font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a" text-anchor="middle">' +
+          '<text x="125" y="41">Benda</text><text x="335" y="41">Ukuran (meter)</text>' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1e293b" text-anchor="middle">' +
+          '<text x="125" y="79">Debu</text><text x="335" y="79">5 × 10⁻⁵</text>' +
+          '<text x="125" y="116">Sel darah merah</text><text x="335" y="116">7 × 10⁻⁶</text>' +
+          '<text x="125" y="154">Bakteri</text><text x="335" y="154">2 × 10⁻⁶</text>' +
+          '<text x="125" y="191">Virus</text><text x="335" y="191">1 × 10⁻⁷</text>' +
+          '</g>' +
+          '</svg>',
+
+      21: '<svg viewBox="0 0 540 270" class="w-full">' +
+          '<g><polygon points="75,95 110,32 205,95" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="82" y="62" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">9 cm</text>' +
+          '<text x="165" y="58" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">12 cm</text>' +
+          '<text x="140" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">15 cm</text>' +
+          '<text x="140" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">P</text></g>' +
+          '<g><polygon points="335,95 378,30 465,95" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="348" y="62" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">8 cm</text>' +
+          '<text x="428" y="58" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">15 cm</text>' +
+          '<text x="400" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">17 cm</text>' +
+          '<text x="400" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">Q</text></g>' +
+          '<g><polygon points="75,215 162,155 205,215" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="112" y="180" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">7 cm</text>' +
+          '<text x="190" y="182" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">24 cm</text>' +
+          '<text x="140" y="234" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">26 cm</text>' +
+          '<text x="140" y="254" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">R</text></g>' +
+          '<g><polygon points="335,215 395,152 465,215" fill="#eff6ff" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="358" y="180" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">6 cm</text>' +
+          '<text x="436" y="180" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">8 cm</text>' +
+          '<text x="400" y="234" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#1e293b">12 cm</text>' +
+          '<text x="400" y="254" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">S</text></g>' +
+          '</svg>',
+
+      22: '<svg viewBox="0 0 340 270" class="w-full">' +
+          '<defs><marker id="arr22" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" /></marker></defs>' +
+          '<line x1="55" y1="220" x2="295" y2="220" stroke="#1e293b" stroke-width="3" />' +
+          '<polygon points="110,28 165,42 110,56" fill="#e11d48" stroke="#1e293b" stroke-width="2" />' +
+          '<line x1="110" y1="25" x2="110" y2="220" stroke="#475569" stroke-width="5" stroke-linecap="round" />' +
+          '<polyline points="110,206 124,206 124,220" fill="none" stroke="#1e293b" stroke-width="2" />' +
+          '<line x1="110" y1="28" x2="240" y2="220" stroke="#854d0e" stroke-width="3.2" />' +
+          '<circle cx="240" cy="220" r="6" fill="#0f172a" />' +
+          '<text x="95" y="130" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">12 m</text>' +
+          '<text x="195" y="112" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">13 m</text>' +
+          '<line x1="116" y1="236" x2="234" y2="236" stroke="#1e293b" stroke-width="1.8" marker-start="url(#arr22)" marker-end="url(#arr22)" />' +
+          '<text x="175" y="258" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a">jarak = ?</text>' +
+          '</svg>',
+
+      23: '<svg viewBox="0 0 360 350" class="w-full">' +
+          '<g stroke="#cbd5e1" stroke-width="1">' +
+          '<line x1="45" y1="30" x2="325" y2="30" /><line x1="45" y1="58" x2="325" y2="58" />' +
+          '<line x1="45" y1="86" x2="325" y2="86" /><line x1="45" y1="114" x2="325" y2="114" />' +
+          '<line x1="45" y1="142" x2="325" y2="142" /><line x1="45" y1="170" x2="325" y2="170" />' +
+          '<line x1="45" y1="198" x2="325" y2="198" /><line x1="45" y1="226" x2="325" y2="226" />' +
+          '<line x1="45" y1="254" x2="325" y2="254" /><line x1="45" y1="282" x2="325" y2="282" />' +
+          '<line x1="73" y1="30" x2="73" y2="310" /><line x1="101" y1="30" x2="101" y2="310" />' +
+          '<line x1="129" y1="30" x2="129" y2="310" /><line x1="157" y1="30" x2="157" y2="310" />' +
+          '<line x1="185" y1="30" x2="185" y2="310" /><line x1="213" y1="30" x2="213" y2="310" />' +
+          '<line x1="241" y1="30" x2="241" y2="310" /><line x1="269" y1="30" x2="269" y2="310" />' +
+          '<line x1="297" y1="30" x2="297" y2="310" /><line x1="325" y1="30" x2="325" y2="310" />' +
+          '</g>' +
+          '<line x1="45" y1="30" x2="45" y2="310" stroke="#0f172a" stroke-width="2.2" />' +
+          '<line x1="45" y1="310" x2="325" y2="310" stroke="#0f172a" stroke-width="2.2" />' +
+          '<g font-family="Inter, sans-serif" font-size="11" fill="#334155" font-weight="600">' +
+          '<text x="45" y="326" text-anchor="middle">0</text><text x="73" y="326" text-anchor="middle">1</text>' +
+          '<text x="101" y="326" text-anchor="middle">2</text><text x="129" y="326" text-anchor="middle">3</text>' +
+          '<text x="157" y="326" text-anchor="middle">4</text><text x="185" y="326" text-anchor="middle">5</text>' +
+          '<text x="213" y="326" text-anchor="middle">6</text><text x="241" y="326" text-anchor="middle">7</text>' +
+          '<text x="269" y="326" text-anchor="middle">8</text><text x="297" y="326" text-anchor="middle">9</text>' +
+          '<text x="325" y="326" text-anchor="middle">10</text>' +
+          '<text x="36" y="286" text-anchor="end">1</text><text x="36" y="258" text-anchor="end">2</text>' +
+          '<text x="36" y="230" text-anchor="end">3</text><text x="36" y="202" text-anchor="end">4</text>' +
+          '<text x="36" y="174" text-anchor="end">5</text><text x="36" y="146" text-anchor="end">6</text>' +
+          '<text x="36" y="118" text-anchor="end">7</text><text x="36" y="90" text-anchor="end">8</text>' +
+          '<text x="36" y="62" text-anchor="end">9</text><text x="36" y="34" text-anchor="end">10</text>' +
+          '</g>' +
+          '<line x1="101" y1="282" x2="101" y2="58" stroke="#2563eb" stroke-width="3.2" />' +
+          '<line x1="101" y1="58" x2="269" y2="58" stroke="#2563eb" stroke-width="3.2" />' +
+          '<line x1="101" y1="282" x2="269" y2="58" stroke="#e11d48" stroke-width="3.2" />' +
+          '<g fill="#0f172a"><circle cx="101" cy="282" r="5.5" /><circle cx="101" cy="58" r="5.5" /><circle cx="269" cy="58" r="5.5" /></g>' +
+          '<text x="108" y="302" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#0f172a">P(2, 1)</text>' +
+          '<text x="96" y="45" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#0f172a">R(2, 9)</text>' +
+          '<text x="274" y="48" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#0f172a">Q(8, 9)</text>' +
+          '</svg>',
+
+      24: '<svg viewBox="0 0 380 285" class="w-full">' +
+          '<defs><marker id="arrBlue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb" /></marker>' +
+          '<marker id="arrNorth" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a" /></marker></defs>' +
+          '<text x="115" y="45" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#0f172a">U</text>' +
+          '<line x1="115" y1="80" x2="115" y2="55" stroke="#0f172a" stroke-width="2.5" marker-end="url(#arrNorth)" />' +
+          '<line x1="110" y1="235" x2="255" y2="42" stroke="#e11d48" stroke-width="3.2" stroke-dasharray="9,7" />' +
+          '<line x1="110" y1="235" x2="250" y2="235" stroke="#2563eb" stroke-width="3.5" marker-end="url(#arrBlue)" />' +
+          '<line x1="255" y1="235" x2="255" y2="48" stroke="#2563eb" stroke-width="3.5" marker-end="url(#arrBlue)" />' +
+          '<circle cx="110" cy="235" r="6" fill="#0f172a" /><circle cx="255" cy="235" r="6" fill="#0f172a" /><circle cx="255" cy="42" r="6" fill="#0f172a" />' +
+          '<text x="98" y="240" text-anchor="end" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">Rumah</text>' +
+          '<text x="255" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">Sekolah</text>' +
+          '<text x="182" y="260" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#1e293b">8 km ke timur</text>' +
+          '<text x="268" y="135" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#1e293b">15 km</text>' +
+          '<text x="268" y="154" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#1e293b">ke utara</text>' +
+          '</svg>',
+
+      25: '<svg viewBox="0 0 420 205" class="w-full">' +
+          '<rect x="95" y="30" width="265" height="130" fill="#eff6ff" stroke="#1e293b" stroke-width="3" />' +
+          '<line x1="95" y1="30" x2="360" y2="160" stroke="#e11d48" stroke-width="3.5" stroke-dasharray="10,7" />' +
+          '<text x="275" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#e11d48">17 cm</text>' +
+          '<text x="80" y="100" text-anchor="end" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">l = ?</text>' +
+          '<text x="227" y="188" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#0f172a">p = 15 cm</text>' +
+          '</svg>',
+
+      26: '<svg viewBox="0 0 480 185" class="w-full">' +
+          '<polygon points="215,165 240,115 265,165" fill="#cbd5e1" stroke="#1e293b" stroke-width="2.5" />' +
+          '<line x1="240" y1="45" x2="240" y2="115" stroke="#1e293b" stroke-width="4" />' +
+          '<line x1="105" y1="45" x2="375" y2="45" stroke="#1e293b" stroke-width="6" stroke-linecap="round" />' +
+          '<circle cx="240" cy="45" r="7" fill="#0f172a" />' +
+          '<line x1="105" y1="45" x2="55" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<line x1="105" y1="45" x2="155" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<polygon points="35,95 175,95 162,106 48,106" fill="#93c5fd" stroke="#1e293b" stroke-width="2" />' +
+          '<rect x="44" y="57" width="38" height="38" rx="6" fill="#fed7aa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="63" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-style="italic" font-weight="800" fill="#0f172a">x</text>' +
+          '<rect x="85" y="57" width="38" height="38" rx="6" fill="#fed7aa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="104" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-style="italic" font-weight="800" fill="#0f172a">x</text>' +
+          '<rect x="126" y="66" width="42" height="29" fill="#94a3b8" stroke="#1e293b" stroke-width="2" />' +
+          '<text x="147" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#ffffff">3 kg</text>' +
+          '<line x1="375" y1="45" x2="325" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<line x1="375" y1="45" x2="425" y2="95" stroke="#64748b" stroke-width="2" />' +
+          '<polygon points="305,95 445,95 432,106 318,106" fill="#93c5fd" stroke="#1e293b" stroke-width="2" />' +
+          '<rect x="332" y="57" width="38" height="38" rx="6" fill="#fed7aa" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="351" y="82" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-style="italic" font-weight="800" fill="#0f172a">x</text>' +
+          '<rect x="374" y="66" width="42" height="29" fill="#94a3b8" stroke="#1e293b" stroke-width="2" />' +
+          '<text x="395" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#ffffff">8 kg</text>' +
+          '</svg>',
+
+      27: '<svg viewBox="0 0 480 110" class="w-full">' +
+          '<defs><marker id="arrAxis27" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b" /></marker>' +
+          '<marker id="arrRedLeft" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" fill="#e11d48" /></marker></defs>' +
+          '<line x1="35" y1="45" x2="445" y2="45" stroke="#1e293b" stroke-width="2.5" marker-start="url(#arrAxis27)" marker-end="url(#arrAxis27)" />' +
+          '<g stroke="#1e293b" stroke-width="2">' +
+          '<line x1="60" y1="37" x2="60" y2="53" /><line x1="105" y1="37" x2="105" y2="53" />' +
+          '<line x1="150" y1="37" x2="150" y2="53" /><line x1="195" y1="37" x2="195" y2="53" />' +
+          '<line x1="240" y1="37" x2="240" y2="53" /><line x1="285" y1="37" x2="285" y2="53" />' +
+          '<line x1="330" y1="37" x2="330" y2="53" /><line x1="375" y1="37" x2="375" y2="53" />' +
+          '<line x1="420" y1="37" x2="420" y2="53" />' +
+          '</g>' +
+          '<g font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a" text-anchor="middle">' +
+          '<text x="60" y="76">0</text><text x="105" y="76">1</text><text x="150" y="76">2</text>' +
+          '<text x="195" y="76">3</text><text x="240" y="76">4</text><text x="285" y="76">5</text>' +
+          '<text x="330" y="76">6</text><text x="375" y="76">7</text><text x="420" y="76">8</text>' +
+          '</g>' +
+          '<line x1="240" y1="45" x2="65" y2="45" stroke="#e11d48" stroke-width="5" marker-end="url(#arrRedLeft)" />' +
+          '<circle cx="240" cy="45" r="7.5" fill="#e11d48" />' +
+          '</svg>',
+
+      28: '<svg viewBox="0 0 420 205" class="w-full">' +
+          '<rect x="25" y="15" width="370" height="175" rx="12" fill="#f0fdf4" stroke="#1e293b" stroke-width="2.5" />' +
+          '<text x="210" y="45" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="800" fill="#0f172a">TARIF PARKIR MOBIL</text>' +
+          '<line x1="40" y1="58" x2="380" y2="58" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="5,4" />' +
+          '<text x="45" y="88" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Jam pertama: Rp3.000</text>' +
+          '<text x="45" y="116" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Setiap jam berikutnya: Rp2.000</text>' +
+          '<line x1="40" y1="142" x2="380" y2="142" stroke="#1e293b" stroke-width="1.8" stroke-dasharray="5,4" />' +
+          '<text x="45" y="170" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#0f172a">Uang Bu Sari: Rp15.000</text>' +
+          '</svg>',
+
+      29: '<svg viewBox="0 0 420 225" class="w-full">' +
+          '<polygon points="105,165 180,35 315,165" fill="#eff6ff" stroke="#1e293b" stroke-width="3" />' +
+          '<text x="132" y="96" text-anchor="end" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a">(x + 2) cm</text>' +
+          '<text x="260" y="96" text-anchor="start" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a">(x + 5) cm</text>' +
+          '<text x="210" y="194" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0f172a">(2x − 1) cm</text>' +
+          '<text x="200" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">Keliling = 34 cm</text>' +
+          '</svg>',
+
+      30: '<svg viewBox="0 0 460 275" class="w-full">' +
+          '<g stroke="#cbd5e1" stroke-width="1.2">' +
+          '<line x1="65" y1="195" x2="435" y2="195" /><line x1="65" y1="159" x2="435" y2="159" />' +
+          '<line x1="65" y1="123" x2="435" y2="123" /><line x1="65" y1="87" x2="435" y2="87" />' +
+          '<line x1="65" y1="51" x2="435" y2="51" />' +
+          '</g>' +
+          '<line x1="65" y1="87" x2="435" y2="87" stroke="#64748b" stroke-width="2" stroke-dasharray="7,5" />' +
+          '<text x="325" y="42" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#334155">garis putus-putus: rata-rata minimal 80</text>' +
+          '<line x1="65" y1="25" x2="65" y2="231" stroke="#0f172a" stroke-width="2" />' +
+          '<line x1="65" y1="231" x2="435" y2="231" stroke="#0f172a" stroke-width="2" />' +
+          '<g font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#334155" text-anchor="end">' +
+          '<text x="56" y="235">0</text><text x="56" y="199">20</text><text x="56" y="163">40</text>' +
+          '<text x="56" y="127">60</text><text x="56" y="91">80</text><text x="56" y="55">100</text>' +
+          '</g>' +
+          '<text x="20" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a" transform="rotate(-90 20 128)">Nilai</text>' +
+          '<rect x="85" y="105" width="75" height="126" fill="#7aa6eb" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="122.5" y="98" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">70</text>' +
+          '<rect x="210" y="87" width="75" height="144" fill="#7aa6eb" stroke="#1e293b" stroke-width="2.2" />' +
+          '<text x="247.5" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0f172a">80</text>' +
+          '<rect x="335" y="123" width="75" height="108" fill="#ffffff" stroke="#e11d48" stroke-width="2.8" stroke-dasharray="8,5" />' +
+          '<text x="372.5" y="182" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-style="italic" font-weight="800" fill="#e11d48">x</text>' +
+          '<g font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0f172a" text-anchor="middle">' +
+          '<text x="122.5" y="252">Ulangan 1</text><text x="247.5" y="252">Ulangan 2</text><text x="372.5" y="252">Ulangan 3</text>' +
+          '</g>' +
+          '</svg>'
+    };
+
+    /**
+     * 3. BANK DATA LENGKAP 30 SOAL + KUNCI + PEMBAHASAN
+     */
+    const QUESTIONS = [
+      // ================= BAGIAN A: PILIHAN GANDA (1 - 15) =================
+      {
+        id: 1,
+        part: 'A',
+        type: 'single',
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Sebuah sel membelah diri menjadi dua sel setiap 30 menit, seperti ditunjukkan pada diagram berikut.<br><br>Jika pengamatan dimulai dengan satu sel, banyak sel setelah 3 jam adalah ....',
+        options: { A: '12', B: '32', C: '64', D: '128' },
+        correct: ['C'],
+        explanation: '3 jam = 180 menit = 6 kali pembelahan (180 : 30 = 6). Banyak sel = 2⁶ = 64 sel.'
+      },
+      {
+        id: 2,
+        part: 'A',
+        type: 'single',
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Para peneliti mengukur diameter sebuah virus seperti pada gambar berikut.<br><br>Diameter virus tersebut jika ditulis dalam notasi ilmiah adalah ... meter.',
+        options: { A: '1,2 × 10⁻⁷', B: '1,2 × 10⁻⁶', C: '1,2 × 10⁶', D: '1,2 × 10⁷' },
+        correct: ['A'],
+        explanation: '0,00000012 = 1,2 × 0,0000001 = 1,2 × 10⁻⁷ (tanda koma digeser 7 tempat ke kanan).'
+      },
+      {
+        id: 3,
+        part: 'A',
+        type: 'single',
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Sebuah persegi memiliki luas 50 cm².<br><br>Panjang sisi persegi tersebut dalam bentuk akar yang paling sederhana adalah ... cm.',
+        options: { A: '2√5', B: '5√2', C: '10√5', D: '25√2' },
+        correct: ['B'],
+        explanation: 's = √50 = √(25 × 2) = 5√2 cm.'
+      },
+      {
+        id: 4,
+        part: 'A',
+        type: 'single',
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Dua potong pita disambung seperti pada gambar berikut.<br><br>Panjang pita setelah disambung adalah ... cm.',
+        options: { A: '5√3', B: '6√3', C: '8√3', D: '12√3' },
+        correct: ['C'],
+        explanation: '3√12 = 3 × √(4 × 3) = 3 × 2√3 = 6√3 cm. Panjang total = 6√3 + 2√3 = 8√3 cm.'
+      },
+      {
+        id: 5,
+        part: 'A',
+        type: 'single',
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Sebuah kotak kayu berbentuk kubus memiliki panjang rusuk 2³ cm.<br><br>Volume kubus tersebut adalah ... cm³.',
+        options: { A: '64', B: '128', C: '256', D: '512' },
+        correct: ['D'],
+        explanation: 'Volume = s³ = (2³)³ = 2⁹ = 512 cm³ (atau 8³ = 512 cm³).'
+      },
+      {
+        id: 6,
+        part: 'A',
+        type: 'single',
+        topic: 'Teorema Pythagoras',
+        text: 'Sebuah tangga sepanjang 13 m disandarkan pada tembok seperti pada gambar. Jarak kaki tangga ke tembok adalah 5 m.<br><br>Tinggi tembok yang dicapai ujung atas tangga adalah ... m.',
+        options: { A: '12', B: '13', C: '17', D: '18' },
+        correct: ['A'],
+        explanation: 't² = 13² − 5² = 169 − 25 = 144, sehingga t = √144 = 12 m.'
+      },
+      {
+        id: 7,
+        part: 'A',
+        type: 'single',
+        topic: 'Teorema Pythagoras',
+        text: 'Perhatikan empat segitiga dengan panjang sisi seperti pada gambar (gambar tidak digambar dengan skala).<br><br>Segitiga yang merupakan segitiga siku-siku adalah ....',
+        options: { A: 'Segitiga (A)', B: 'Segitiga (B)', C: 'Segitiga (C)', D: 'Segitiga (D)' },
+        correct: ['B'],
+        explanation: 'Segitiga (B): 5² + 12² = 25 + 144 = 169 = 13² (memenuhi Teorema Pythagoras).'
+      },
+      {
+        id: 8,
+        part: 'A',
+        type: 'single',
+        topic: 'Teorema Pythagoras',
+        text: 'Titik A dan B digambar pada bidang koordinat seperti berikut.<br><br>Jarak antara titik A(1, 2) dan titik B(7, 10) adalah ... satuan.',
+        options: { A: '6', B: '8', C: '9', D: '10' },
+        correct: ['D'],
+        explanation: 'Selisih absis Δx = 7 − 1 = 6, selisih ordinat Δy = 10 − 2 = 8. Jarak AB = √(6² + 8²) = √(36 + 64) = √100 = 10 satuan.'
+      },
+      {
+        id: 9,
+        part: 'A',
+        type: 'single',
+        topic: 'Teorema Pythagoras',
+        text: 'Sebuah lapangan berbentuk persegi panjang berukuran 24 m × 7 m. Andi berlari menyusuri diagonal lapangan.<br><br>Jarak yang ditempuh Andi adalah ... m.',
+        options: { A: '17', B: '25', C: '31', D: '32' },
+        correct: ['B'],
+        explanation: 'Diagonal = √(24² + 7²) = √(576 + 49) = √625 = 25 m.'
+      },
+      {
+        id: 10,
+        part: 'A',
+        type: 'single',
+        topic: 'Teorema Pythagoras',
+        text: 'Sebuah papan berbentuk segitiga sama kaki dengan ukuran seperti pada gambar.<br><br>Luas papan tersebut adalah ... cm².',
+        options: { A: '48', B: '60', C: '96', D: '120' },
+        correct: ['A'],
+        explanation: 'Setengah alas = 12 : 2 = 6 cm. Tinggi = √(10² − 6²) = √(100 − 36) = √64 = 8 cm. Luas = ½ × 12 × 8 = 48 cm².'
+      },
+      {
+        id: 11,
+        part: 'A',
+        type: 'single',
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Neraca berikut dalam keadaan seimbang. Setiap karung memiliki berat yang sama, yaitu x kg.<br><br>Nilai x adalah ... kg.',
+        options: { A: '6', B: '8', C: '11', D: '12' },
+        correct: ['A'],
+        explanation: '2x + 5 = 17 → 2x = 17 − 5 → 2x = 12 → x = 6 kg.'
+      },
+      {
+        id: 12,
+        part: 'A',
+        type: 'single',
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Sebuah persegi panjang memiliki panjang (2x + 3) cm, lebar (x + 1) cm, dan keliling 38 cm.<br><br>Panjang persegi panjang tersebut adalah ... cm.',
+        options: { A: '7', B: '11', C: '13', D: '15' },
+        correct: ['C'],
+        explanation: '2[(2x + 3) + (x + 1)] = 38 → 3x + 4 = 19 → 3x = 15 → x = 5. Panjang = 2(5) + 3 = 13 cm.'
+      },
+      {
+        id: 13,
+        part: 'A',
+        type: 'single',
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Garis bilangan berikut menunjukkan himpunan penyelesaian suatu pertidaksamaan linear satu variabel (lingkaran kosong berarti 4 tidak termasuk).<br><br>Pertidaksamaan yang memiliki himpunan penyelesaian seperti pada garis bilangan tersebut adalah ....',
+        options: { A: '3x − 2 ≥ 10', B: '2x + 1 < 9', C: '3x − 2 > 10', D: '2x + 1 ≤ 9' },
+        correct: ['C'],
+        explanation: 'Garis bilangan menunjukkan x > 4. Dari opsi C: 3x − 2 > 10 → 3x > 12 → x > 4.'
+      },
+      {
+        id: 14,
+        part: 'A',
+        type: 'single',
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Sebuah lift memiliki kapasitas maksimum 500 kg. Pak Dani yang beratnya 60 kg naik lift bersama 4 kotak barang yang beratnya sama, yaitu x kg tiap kotak.<br><br>Berat maksimum tiap kotak agar lift tidak melebihi kapasitas adalah ... kg.',
+        options: { A: '80', B: '90', C: '100', D: '110' },
+        correct: ['D'],
+        explanation: '60 + 4x ≤ 500 → 4x ≤ 440 → x ≤ 110. Jadi berat maksimum tiap kotak adalah 110 kg.'
+      },
+      {
+        id: 15,
+        part: 'A',
+        type: 'single',
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Pak Rudi menyewa mobil dengan tarif seperti pada gambar.<br><br>Lama sewa maksimum yang dapat dilakukan Pak Rudi adalah ... jam.',
+        options: { A: '8', B: '10', C: '12', D: '15' },
+        correct: ['B'],
+        explanation: '150.000 + 25.000x ≤ 400.000 → 25.000x ≤ 250.000 → x ≤ 10 jam.'
+      },
+
+      // ================= BAGIAN B: PG KOMPLEKS (16 - 30) =================
+      {
+        id: 16,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Jumlah bakteri pada awal pengamatan adalah 5 dan menjadi dua kali lipat setiap jam, seperti pada diagram batang berikut.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Setelah 5 jam, jumlah bakteri adalah 100.',
+          B: 'Setelah 4 jam, jumlah bakteri adalah 80.',
+          C: 'Setelah t jam, jumlah bakteri adalah 5 × 2 pangkat t.',
+          D: 'Setelah 6 jam, jumlah bakteri adalah 300.'
+        },
+        correct: ['B', 'C'],
+        explanation: 'Banyak bakteri = 5 × 2ᵗ. Untuk t = 4 → 5 × 16 = 80 (B benar). Rumus umumnya 5 × 2ᵗ (C benar). Untuk t = 5 hasilnya 160, t = 6 hasilnya 320.'
+      },
+      {
+        id: 17,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 3,
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Perhatikan kubus dengan panjang rusuk 3² cm berikut.<br><br>Pilihlah pernyataan yang benar tentang kubus tersebut.',
+        options: {
+          A: 'Panjang rusuk kubus adalah 9 cm.',
+          B: 'Volume kubus adalah 3⁶ cm³.',
+          C: 'Luas satu sisi kubus adalah 3³ cm².',
+          D: 'Luas permukaan kubus adalah 486 cm².'
+        },
+        correct: ['A', 'B', 'D'],
+        explanation: 'Rusuk = 3² = 9 cm (A benar). Volume = (3²)³ = 3⁶ = 729 cm³ (B benar). Luas satu sisi = 9² = 81 = 3⁴ cm² (C salah). Luas permukaan = 6 × 81 = 486 cm² (D benar).'
+      },
+      {
+        id: 18,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Sebuah persegi memiliki luas 72 cm².<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Panjang sisi persegi adalah 6√2 cm.',
+          B: 'Panjang sisi persegi adalah 36 cm.',
+          C: 'Panjang diagonal persegi adalah 6√3 cm.',
+          D: 'Keliling persegi adalah 24√2 cm.'
+        },
+        correct: ['A', 'D'],
+        explanation: 's = √72 = √(36 × 2) = 6√2 cm (A benar). Keliling = 4 × 6√2 = 24√2 cm (D benar). Diagonal = s√2 = 6√2 × √2 = 12 cm.'
+      },
+      {
+        id: 19,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Perhatikan letak beberapa bilangan bentuk akar pada garis bilangan berikut.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: '√5 terletak di antara 3 dan 4.',
+          B: '√20 terletak di antara 4 dan 5.',
+          C: '√10 terletak di antara 2 dan 3.',
+          D: '√30 terletak di antara 5 dan 6.'
+        },
+        correct: ['B', 'D'],
+        explanation: '√16 < √20 < √25 → 4 < √20 < 5 (B benar). √25 < √30 < √36 → 5 < √30 < 6 (D benar).'
+      },
+      {
+        id: 20,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Bilangan Berpangkat & Bentuk Akar',
+        text: 'Tabel berikut menunjukkan ukuran beberapa benda dalam notasi ilmiah.<br><br>Pilihlah pernyataan yang benar berdasarkan tabel.',
+        options: {
+          A: 'Virus adalah benda paling kecil di antara keempat benda.',
+          B: 'Sel darah merah lebih kecil daripada bakteri.',
+          C: 'Ukuran debu 25 kali ukuran bakteri.',
+          D: 'Ukuran bakteri 200 kali ukuran virus.'
+        },
+        correct: ['A', 'C'],
+        explanation: 'Virus (1 × 10⁻⁷ m) memiliki pangkat negatif terbesar sehingga paling kecil (A benar). Perbandingan debu : bakteri = (5 × 10⁻⁵) : (2 × 10⁻⁶) = 50 : 2 = 25 kali (C benar).'
+      },
+      {
+        id: 21,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Teorema Pythagoras',
+        text: 'Perhatikan empat segitiga P, Q, R, dan S dengan panjang sisi seperti pada gambar (gambar tidak digambar dengan skala).<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Segitiga P merupakan segitiga siku-siku.',
+          B: 'Segitiga R merupakan segitiga siku-siku.',
+          C: 'Segitiga S merupakan segitiga siku-siku.',
+          D: 'Segitiga Q merupakan segitiga siku-siku.'
+        },
+        correct: ['A', 'D'],
+        explanation: 'P: 9² + 12² = 81 + 144 = 225 = 15² (siku-siku). Q: 8² + 15² = 64 + 225 = 289 = 17² (siku-siku).'
+      },
+      {
+        id: 22,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Teorema Pythagoras',
+        text: 'Sebuah tiang bendera setinggi 12 m ditegakkan di tanah datar. Seutas tali sepanjang 13 m dibentangkan dari puncak tiang ke sebuah titik di tanah.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Jika jarak titik di tanah ke dasar tiang 9 m, panjang tali 14 m.',
+          B: 'Jarak titik di tanah ke dasar tiang adalah 5 m.',
+          C: 'Jika panjang tali 15 m (tinggi tiang tetap), jarak titik di tanah ke dasar tiang adalah 9 m.',
+          D: 'Jika jarak titik di tanah ke dasar tiang 5 m, tinggi tiang 13 m.'
+        },
+        correct: ['B', 'C'],
+        explanation: 'Jarak = √(13² − 12²) = √25 = 5 m (B benar). Jika tali 15 m: jarak = √(15² − 12²) = √81 = 9 m (C benar).'
+      },
+      {
+        id: 23,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 3,
+        topic: 'Teorema Pythagoras',
+        text: 'Tiga titik P(2, 1), Q(8, 9), dan R(2, 9) digambar pada bidang koordinat.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Panjang PR adalah 8 satuan.',
+          B: 'Panjang PQ adalah 14 satuan.',
+          C: 'Panjang RQ adalah 6 satuan.',
+          D: 'Panjang PQ adalah 10 satuan.'
+        },
+        correct: ['A', 'C', 'D'],
+        explanation: 'PR = 9 − 1 = 8 satuan (A benar). RQ = 8 − 2 = 6 satuan (C benar). PQ = √(8² + 6²) = √100 = 10 satuan (D benar).'
+      },
+      {
+        id: 24,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 3,
+        topic: 'Teorema Pythagoras',
+        text: 'Andi berjalan dari rumah menuju sekolah dengan rute: 8 km ke timur, kemudian 15 km ke utara, seperti pada gambar.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Jarak lurus rumah ke sekolah adalah 23 km.',
+          B: 'Jarak lurus rumah ke sekolah adalah 17 km.',
+          C: 'Jika berjalan lurus dari rumah ke sekolah, Andi menghemat 6 km dibanding rute pada gambar.',
+          D: 'Jika rute diubah menjadi 15 km ke timur lalu 8 km ke utara, jarak lurus rumah ke sekolah tetap 17 km.'
+        },
+        correct: ['B', 'C', 'D'],
+        explanation: 'Jarak lurus = √(8² + 15²) = √289 = 17 km (B benar). Rute biasa = 8 + 15 = 23 km → hemat 23 − 17 = 6 km (C benar). Rute 15 km & 8 km juga menghasilkan √(15² + 8²) = 17 km (D benar).'
+      },
+      {
+        id: 25,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'Teorema Pythagoras',
+        text: 'Sebuah persegi panjang memiliki panjang 15 cm dan diagonal 17 cm.<br><br>Pilihlah pernyataan yang benar tentang persegi panjang tersebut.',
+        options: {
+          A: 'Lebar persegi panjang adalah 12 cm.',
+          B: 'Luas persegi panjang adalah 120 cm².',
+          C: 'Keliling persegi panjang adalah 56 cm.',
+          D: 'Lebar persegi panjang adalah 8 cm.'
+        },
+        correct: ['B', 'D'],
+        explanation: 'l = √(17² − 15²) = √(289 − 225) = √64 = 8 cm (D benar). Luas = 15 × 8 = 120 cm² (B benar).'
+      },
+      {
+        id: 26,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Neraca berikut dalam keadaan seimbang. Setiap karung memiliki berat x kg.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Persamaan yang sesuai adalah 2x + 3 = x + 8.',
+          B: 'Berat satu karung adalah 11 kg.',
+          C: 'Berat satu karung adalah 5 kg.',
+          D: 'Jika kedua sisi dikurangi 3 kg, neraca tidak seimbang.'
+        },
+        correct: ['A', 'C'],
+        explanation: 'Persamaan neraca: 2x + 3 = x + 8 (A benar). Penyelesaian: 2x − x = 8 − 3 → x = 5 kg (C benar).'
+      },
+      {
+        id: 27,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Garis bilangan berikut menunjukkan himpunan penyelesaian suatu pertidaksamaan (lingkaran penuh berarti 4 termasuk).<br><br>Pilihlah pertidaksamaan yang memiliki himpunan penyelesaian seperti pada garis bilangan.',
+        options: {
+          A: '2x + 1 < 9',
+          B: '3x − 5 ≤ 7',
+          C: 'x − 1 ≤ 3',
+          D: '4x − 3 ≥ 13'
+        },
+        correct: ['B', 'C'],
+        explanation: 'Garis bilangan menunjukkan x ≤ 4. Opsi B: 3x − 5 ≤ 7 → 3x ≤ 12 → x ≤ 4. Opsi C: x − 1 ≤ 3 → x ≤ 4.'
+      },
+      {
+        id: 28,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Tarif parkir mobil dan uang yang dibawa Bu Sari ditunjukkan pada gambar. Misalkan lama parkir adalah x jam (x bilangan bulat).<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Lama parkir maksimum Bu Sari adalah 7 jam.',
+          B: 'Lama parkir maksimum Bu Sari adalah 8 jam.',
+          C: 'Biaya parkir 5 jam adalah Rp13.000.',
+          D: 'Biaya parkir 6 jam adalah Rp13.000.'
+        },
+        correct: ['A', 'D'],
+        explanation: '3.000 + 2.000(x − 1) ≤ 15.000 → 2.000(x − 1) ≤ 12.000 → x − 1 ≤ 6 → x ≤ 7 jam (A benar). Biaya 6 jam = 3.000 + 5 × 2.000 = Rp13.000 (D benar).'
+      },
+      {
+        id: 29,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 2,
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Sebuah segitiga memiliki sisi-sisi (2x − 1) cm, (x + 2) cm, dan (x + 5) cm dengan keliling 34 cm.<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Persamaan keliling adalah 4x + 6 = 34.',
+          B: 'Panjang sisi terpendek adalah 8 cm.',
+          C: 'Nilai x adalah 7.',
+          D: 'Panjang sisi terpanjang adalah 14 cm.'
+        },
+        correct: ['A', 'C'],
+        explanation: '(2x − 1) + (x + 2) + (x + 5) = 4x + 6 = 34 (A benar). 4x = 28 → x = 7 (C benar). Panjang sisi-sisinya: 13 cm, 9 cm, dan 12 cm.'
+      },
+      {
+        id: 30,
+        part: 'B',
+        type: 'multiple',
+        requiredCount: 3,
+        topic: 'PLSV & Pertidaksamaan Linear',
+        text: 'Dina memperoleh nilai ulangan 70 dan 80. Agar nilai rata-rata tiga ulangan minimal 80, ia perlu mendapat nilai x pada ulangan ketiga (nilai maksimum 100).<br><br>Pilihlah pernyataan yang benar.',
+        options: {
+          A: 'Nilai x yang diperlukan adalah x ≥ 90.',
+          B: 'Nilai 85 pada ulangan ketiga memenuhi syarat.',
+          C: 'Nilai 100 pada ulangan ketiga memenuhi syarat.',
+          D: 'Model pertidaksamaannya adalah (70 + 80 + x) : 3 ≥ 80.'
+        },
+        correct: ['A', 'C', 'D'],
+        explanation: 'Model: (70 + 80 + x) : 3 ≥ 80 (D benar) → 150 + x ≥ 240 → x ≥ 90 (A benar). Nilai 100 memenuhi syarat karena 100 ≥ 90 (C benar).'
+      }
+    ];
+
+    /**
+     * 4. STATE APLIKASI
+     */
+    const state = {
+      student: { name: '', kelas: '' },
+      currentIndex: 0,
+      answers: {},
+      doubts: {},
+      totalSeconds: 90 * 60,
+      remainingSeconds: 90 * 60,
+      timerInterval: null,
+      isSubmitted: false,
+      lastResultPayload: null
+    };
+
+    /**
+     * 5. ELEMEN DOM UTAMA
+     */
+    const el = {
+      startScreen: document.getElementById('startScreen'),
+      quizScreen: document.getElementById('quizScreen'),
+      resultScreen: document.getElementById('resultScreen'),
+      headerTimerBox: document.getElementById('headerTimerBox'),
+      timerDisplay: document.getElementById('timerDisplay'),
+      headerFinishBtn: document.getElementById('headerFinishBtn'),
+
+      // Start form
+      studentStartForm: document.getElementById('studentStartForm'),
+      studentName: document.getElementById('studentName'),
+
+      // Quiz UI
+      displayStudentName: document.getElementById('displayStudentName'),
+      displayStudentClass: document.getElementById('displayStudentClass'),
+      answeredCountBadge: document.getElementById('answeredCountBadge'),
+      qNumberBadge: document.getElementById('qNumberBadge'),
+      qTypeBadge: document.getElementById('qTypeBadge'),
+      qTopicBadge: document.getElementById('qTopicBadge'),
+      qTextContainer: document.getElementById('qTextContainer'),
+      qDiagramContainer: document.getElementById('qDiagramContainer'),
+      qComplexInstruction: document.getElementById('qComplexInstruction'),
+      qComplexInstructionText: document.getElementById('qComplexInstructionText'),
+      qComplexCounterBadge: document.getElementById('qComplexCounterBadge'),
+      qOptionsContainer: document.getElementById('qOptionsContainer'),
+      prevQuestionBtn: document.getElementById('prevQuestionBtn'),
+      nextQuestionBtn: document.getElementById('nextQuestionBtn'),
+      nextBtnLabel: document.getElementById('nextBtnLabel'),
+      doubtCheckbox: document.getElementById('doubtCheckbox'),
+
+      // Floating & Pop-up Navigasi
+      floatingNavBtn: document.getElementById('floatingNavBtn'),
+      floatingNavLabel: document.getElementById('floatingNavLabel'),
+      navPopupModal: document.getElementById('navPopupModal'),
+      navPopupBackdrop: document.getElementById('navPopupBackdrop'),
+      closeNavPopupBtn: document.getElementById('closeNavPopupBtn'),
+      popupAnsweredText: document.getElementById('popupAnsweredText'),
+      navGridPartA: document.getElementById('navGridPartA'),
+      navGridPartB: document.getElementById('navGridPartB'),
+      finishQuizBtn: document.getElementById('finishQuizBtn'),
+
+      // Result UI
+      resStudentName: document.getElementById('resStudentName'),
+      resStudentClass: document.getElementById('resStudentClass'),
+      resDuration: document.getElementById('resDuration'),
+      resFinalScore: document.getElementById('resFinalScore'),
+      resScoreA: document.getElementById('resScoreA'),
+      resScoreB: document.getElementById('resScoreB'),
+      resTotalCorrect: document.getElementById('resTotalCorrect'),
+      resPredicate: document.getElementById('resPredicate'),
+      sheetsSyncBox: document.getElementById('sheetsSyncBox'),
+      syncIconWrapper: document.getElementById('syncIconWrapper'),
+      syncStatusTitle: document.getElementById('syncStatusTitle'),
+      syncStatusDesc: document.getElementById('syncStatusDesc'),
+      retrySyncBtn: document.getElementById('retrySyncBtn'),
+      downloadCsvBtn: document.getElementById('downloadCsvBtn'),
+      backToHomeBtn: document.getElementById('backToHomeBtn'),
+      reviewListContainer: document.getElementById('reviewListContainer'),
+
+      // Modals
+      confirmModal: document.getElementById('confirmModal'),
+      confirmModalTitle: document.getElementById('confirmModalTitle'),
+      confirmModalBody: document.getElementById('confirmModalBody'),
+      confirmCancelBtn: document.getElementById('confirmCancelBtn'),
+      confirmOkBtn: document.getElementById('confirmOkBtn'),
+
+      // Sound & Toast
+      soundToggleBtn: document.getElementById('soundToggleBtn'),
+      soundOnIcon: document.getElementById('soundOnIcon'),
+      soundOffIcon: document.getElementById('soundOffIcon'),
+      soundLabel: document.getElementById('soundLabel'),
+      toastBanner: document.getElementById('toastBanner'),
+      toastMessage: document.getElementById('toastMessage')
+    };
+
+    /**
+     * 6. FUNGSI UTILITAS (TOAST & FORMAT WAKTU)
+     */
+    let toastTimeout = null;
+    function showToast(msg) {
+      el.toastMessage.textContent = msg;
+      el.toastBanner.classList.remove('hidden');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(function () {
+        el.toastBanner.classList.add('hidden');
+      }, 3000);
+    }
+
+    function formatSeconds(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function formatDurationText(elapsedSec) {
+      const m = Math.floor(elapsedSec / 60);
+      const s = elapsedSec % 60;
+      if (m === 0) return s + ' detik';
+      return m + ' menit ' + s + ' detik';
+    }
+
+    function openNavPopup() {
+      SoundFX.click();
+      updateNavigationVisuals();
+      el.navPopupModal.classList.remove('hidden');
+    }
+
+    function closeNavPopup() {
+      el.navPopupModal.classList.add('hidden');
+    }
+
+    /**
+     * 7. RENDER NAVIGASI NOMOR SOAL (DI DALAM POP-UP) & KARTU SOAL AKTIF
+     */
+    function buildNavigationGrids() {
+      el.navGridPartA.innerHTML = '';
+      el.navGridPartB.innerHTML = '';
+
+      QUESTIONS.forEach(function (q, idx) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = q.id;
+        btn.dataset.index = idx;
+        btn.className = 'h-11 rounded-xl font-bold text-sm transition flex items-center justify-center border';
+        btn.addEventListener('click', function () {
+          SoundFX.nav();
+          closeNavPopup();
+          goToQuestion(idx);
+        });
+
+        if (q.part === 'A') {
+          el.navGridPartA.appendChild(btn);
+        } else {
+          el.navGridPartB.appendChild(btn);
+        }
+      });
+      updateNavigationVisuals();
+    }
+
+    function isQuestionAnswered(qId) {
+      const ans = state.answers[qId];
+      return Array.isArray(ans) && ans.length > 0;
+    }
+
+    function updateNavigationVisuals() {
+      let answeredCount = 0;
+      QUESTIONS.forEach(function (q) {
+        if (isQuestionAnswered(q.id)) answeredCount++;
+      });
+
+      el.answeredCountBadge.textContent = answeredCount;
+      el.floatingNavLabel.textContent = 'Daftar Soal (' + answeredCount + '/30)';
+      el.popupAnsweredText.textContent = answeredCount + ' dari 30 soal';
+
+      const allNavBtns = document.querySelectorAll('#navGridPartA button, #navGridPartB button');
+      allNavBtns.forEach(function (btn) {
+        const idx = Number(btn.dataset.index);
+        const q = QUESTIONS[idx];
+        const isCurrent = idx === state.currentIndex;
+        const isDoubt = Boolean(state.doubts[q.id]);
+        const isAnswered = isQuestionAnswered(q.id);
+
+        let baseClass = 'h-11 rounded-xl font-bold text-sm transition flex items-center justify-center border ';
+        if (isCurrent) {
+          baseClass += 'bg-indigo-600 text-white border-indigo-700 ring-4 ring-indigo-500/30 scale-105 z-10 ';
+        } else if (isDoubt) {
+          baseClass += 'bg-amber-400 text-amber-950 border-amber-500 ';
+        } else if (isAnswered) {
+          baseClass += 'bg-emerald-500 text-white border-emerald-600 ';
+        } else {
+          baseClass += 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 ';
+        }
+
+        btn.className = baseClass;
+      });
+    }
+
+    function renderCurrentQuestion() {
+      const q = QUESTIONS[state.currentIndex];
+      const selectedArr = state.answers[q.id] || [];
+
+      el.qNumberBadge.textContent = 'Soal No. ' + q.id;
+      el.qTopicBadge.textContent = q.topic;
+
+      if (q.part === 'A') {
+        el.qTypeBadge.textContent = 'Bagian A • Pilihan Ganda';
+        el.qTypeBadge.className = 'px-3 py-1 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 font-semibold text-xs';
+        el.qComplexInstruction.classList.add('hidden');
+      } else {
+        const labelCount = q.requiredCount === 3 ? 'TIGA' : 'DUA';
+        el.qTypeBadge.textContent = 'Bagian B • Pilihan Ganda Kompleks (Pilih ' + q.requiredCount + ' jawaban)';
+        el.qTypeBadge.className = 'px-3 py-1 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 font-semibold text-xs';
+        el.qComplexInstruction.classList.remove('hidden');
+        el.qComplexInstructionText.textContent = 'Pilihlah ' + labelCount + ' jawaban yang benar!';
+        el.qComplexCounterBadge.textContent = 'Terpilih: ' + selectedArr.length + '/' + q.requiredCount;
+        if (selectedArr.length === q.requiredCount) {
+          el.qComplexCounterBadge.className = 'px-2.5 py-0.5 rounded-lg bg-emerald-600 text-white text-xs font-extrabold';
+        } else {
+          el.qComplexCounterBadge.className = 'px-2.5 py-0.5 rounded-lg bg-purple-600 text-white text-xs font-extrabold';
+        }
+      }
+
+      el.qTextContainer.innerHTML = q.text;
+      el.qDiagramContainer.innerHTML = SVGs[q.id] || '';
+
+      // Render Opsi A - D
+      el.qOptionsContainer.innerHTML = '';
+
+      Object.entries(q.options).forEach(function (entry) {
+        const key = entry[0];
+        const label = entry[1];
+        const isChecked = selectedArr.includes(key);
+        const wrapper = document.createElement('label');
+        wrapper.className = 'option-card flex items-start gap-3.5 p-4 rounded-2xl border-2 cursor-pointer select-none ' + (
+          isChecked
+            ? 'bg-indigo-50/90 border-indigo-600 shadow-sm'
+            : 'bg-white border-slate-200 hover:border-indigo-300 hover:bg-slate-50'
+        );
+
+        const inputType = q.type === 'single' ? 'radio' : 'checkbox';
+        const inputEl = document.createElement('input');
+        inputEl.type = inputType;
+        inputEl.name = 'question_' + q.id;
+        inputEl.value = key;
+        inputEl.checked = isChecked;
+        inputEl.className = 'mt-1 w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500 shrink-0 ' + (
+          inputType === 'checkbox' ? 'rounded' : ''
+        );
+
+        inputEl.addEventListener('change', function () {
+          SoundFX.select();
+          handleOptionChange(q, key, inputEl.checked, inputEl);
+        });
+
+        const badge = document.createElement('span');
+        badge.className = 'w-7 h-7 rounded-lg font-extrabold text-xs sm:text-sm flex items-center justify-center shrink-0 ' + (
+          isChecked ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700'
+        );
+        badge.textContent = key;
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'text-sm sm:text-base font-medium text-slate-800 leading-snug pt-0.5';
+        textSpan.textContent = label;
+
+        wrapper.appendChild(inputEl);
+        wrapper.appendChild(badge);
+        wrapper.appendChild(textSpan);
+        el.qOptionsContainer.appendChild(wrapper);
+      });
+
+      // Status Ragu-ragu
+      el.doubtCheckbox.checked = Boolean(state.doubts[q.id]);
+
+      // Tombol Sebelumnya / Selanjutnya
+      el.prevQuestionBtn.disabled = state.currentIndex === 0;
+      if (state.currentIndex === QUESTIONS.length - 1) {
+        el.nextBtnLabel.textContent = 'Selesai & Kumpulkan';
+        el.nextQuestionBtn.className = 'px-5 sm:px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-sm flex items-center gap-2';
+      } else {
+        el.nextBtnLabel.textContent = 'Selanjutnya';
+        el.nextQuestionBtn.className = 'px-5 sm:px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition shadow-sm flex items-center gap-2';
+      }
+
+      updateNavigationVisuals();
+    }
+
+    function handleOptionChange(q, key, checked, inputEl) {
+      if (q.type === 'single') {
+        state.answers[q.id] = [key];
+      } else {
+        const prev = new Set(state.answers[q.id] || []);
+        if (checked) {
+          if (prev.size >= q.requiredCount) {
+            inputEl.checked = false;
+            showToast('Maksimal pilih ' + q.requiredCount + ' jawaban untuk soal ini! Hapus salah satu pilihan dulu jika ingin mengganti.');
+            return;
+          }
+          prev.add(key);
+        } else {
+          prev.delete(key);
+        }
+        state.answers[q.id] = Array.from(prev).sort();
+      }
+      renderCurrentQuestion();
+    }
+
+    function goToQuestion(idx) {
+      if (idx < 0 || idx >= QUESTIONS.length) return;
+      state.currentIndex = idx;
+      renderCurrentQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /**
+     * 8. TIMER HITUNG MUNDUR 90 MENIT
+     */
+    function startTimer() {
+      clearInterval(state.timerInterval);
+      state.remainingSeconds = state.totalSeconds;
+      el.timerDisplay.textContent = formatSeconds(state.remainingSeconds);
+      el.headerTimerBox.classList.remove('hidden', 'timer-warning', 'bg-rose-950');
+      el.headerTimerBox.classList.add('flex');
+      el.timerDisplay.classList.remove('text-rose-300');
+      el.timerDisplay.classList.add('text-amber-300');
+
+      el.headerFinishBtn.classList.remove('hidden');
+      el.headerFinishBtn.classList.add('flex');
+
+      state.timerInterval = setInterval(function () {
+        state.remainingSeconds--;
+        el.timerDisplay.textContent = formatSeconds(Math.max(0, state.remainingSeconds));
+
+        if (state.remainingSeconds <= 300) {
+          el.headerTimerBox.classList.add('timer-warning', 'bg-rose-950');
+          el.timerDisplay.classList.remove('text-amber-300');
+          el.timerDisplay.classList.add('text-rose-300');
+        }
+
+        if (state.remainingSeconds <= 0) {
+          clearInterval(state.timerInterval);
+          showToast('Waktu habis! Jawaban otomatis dikumpulkan.');
+          finalizeAndSubmitQuiz();
+        }
+      }, 1000);
+    }
+
+    /**
+     * 9. PENILAIAN SKOR & SINKRONISASI GOOGLE SHEETS
+     */
+    function arraysEqualExact(a, b) {
+      if (!Array.isArray(a) || !Array.isArray(b)) return false;
+      if (a.length !== b.length) return false;
+      const sa = a.slice().sort();
+      const sb = b.slice().sort();
+      return sa.every(function (val, i) { return val === sb[i]; });
+    }
+
+    function getPredicate(score) {
+      if (score >= 90) return 'Sangat Baik (A)';
+      if (score >= 80) return 'Baik (B)';
+      if (score >= 70) return 'Cukup (C)';
+      return 'Perlu Bimbingan (D)';
+    }
+
+    function finalizeAndSubmitQuiz() {
+      if (state.isSubmitted) return;
+      state.isSubmitted = true;
+      clearInterval(state.timerInterval);
+      SoundFX.success();
+
+      const elapsedSeconds = state.totalSeconds - Math.max(0, state.remainingSeconds);
+      const durationStr = formatDurationText(elapsedSeconds);
+
+      let scoreA = 0;
+      let scoreB = 0;
+      const rincianPerSoal = [];
+
+      QUESTIONS.forEach(function (q) {
+        const userAns = state.answers[q.id] || [];
+        const isCorrect = arraysEqualExact(userAns, q.correct);
+        if (isCorrect) {
+          if (q.part === 'A') scoreA++;
+          else scoreB++;
+        }
+        const ansLabel = userAns.length > 0 ? userAns.join(',') : '-';
+        rincianPerSoal.push(ansLabel + ' (' + (isCorrect ? 'B' : 'S') + ')');
+      });
+
+      const totalCorrect = scoreA + scoreB;
+      const finalScore = Number(((totalCorrect / 30) * 100).toFixed(2));
+      const predicate = getPredicate(finalScore);
+
+      const payload = {
+        waktu: new Date().toLocaleString('id-ID'),
+        nama: state.student.name,
+        kelas: state.student.kelas,
+        durasi: durationStr,
+        skorPG: scoreA,
+        skorPGK: scoreB,
+        totalBenar: totalCorrect,
+        nilaiAkhir: finalScore,
+        predikat: predicate,
+        rincianJawaban: rincianPerSoal
+      };
+      state.lastResultPayload = payload;
+
+      // Tutup modal & tampilkan Halaman Hasil
+      closeNavPopup();
+      el.confirmModal.classList.add('hidden');
+      el.quizScreen.classList.add('hidden');
+      el.headerTimerBox.classList.add('hidden');
+      el.headerTimerBox.classList.remove('flex');
+      el.headerFinishBtn.classList.add('hidden');
+      el.headerFinishBtn.classList.remove('flex');
+      el.resultScreen.classList.remove('hidden');
+
+      el.resStudentName.textContent = payload.nama;
+      el.resStudentClass.textContent = payload.kelas;
+      el.resDuration.textContent = payload.durasi;
+      el.resFinalScore.textContent = finalScore % 1 === 0 ? finalScore.toFixed(0) : finalScore.toFixed(2);
+      el.resScoreA.textContent = scoreA;
+      el.resScoreB.textContent = scoreB;
+      el.resTotalCorrect.textContent = totalCorrect;
+      el.resPredicate.textContent = predicate;
+
+      renderReviewList();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Kirim otomatis ke Google Sheets
+      sendResultToGoogleSheets(payload);
+    }
+
+    async function sendResultToGoogleSheets(payload) {
+      const gasUrl = (GOOGLE_SCRIPT_URL || '').trim();
+      el.retrySyncBtn.classList.add('hidden');
+
+      if (!gasUrl || gasUrl === 'TEMPEL_URL_WEB_APP_APPS_SCRIPT_DI_SINI') {
+        el.sheetsSyncBox.className = 'rounded-2xl border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-amber-50 border-amber-200';
+        el.syncIconWrapper.innerHTML =
+          '<svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">' +
+          '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />' +
+          '</svg>';
+        el.syncStatusTitle.textContent = 'URL Google Apps Script Belum Diatur';
+        el.syncStatusDesc.textContent = 'Silakan unduh file CSV di samping sebagai cadangan aman.';
+        return;
+      }
+
+      // Set status loading
+      el.sheetsSyncBox.className = 'rounded-2xl border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-blue-50 border-blue-200';
+      el.syncIconWrapper.innerHTML =
+        '<svg class="w-6 h-6 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">' +
+        '<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>' +
+        '<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>' +
+        '</svg>';
+      el.syncStatusTitle.textContent = 'Mengirim hasil ke Spreadsheet...';
+      el.syncStatusDesc.textContent = 'Menghubungkan ke server Google Apps Script SMPN 2 Kasimbar.';
+
+      try {
+        await fetch(gasUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        el.sheetsSyncBox.className = 'rounded-2xl border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-emerald-50 border-emerald-200';
+        el.syncIconWrapper.innerHTML =
+          '<svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">' +
+          '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />' +
+          '</svg>';
+        el.syncStatusTitle.textContent = 'Tersimpan di Google Spreadsheet';
+        el.syncStatusDesc.textContent = 'Nilai atas nama ' + payload.nama + ' (Kelas ' + payload.kelas + ') berhasil dikirim ke Spreadsheet guru.';
+        el.retrySyncBtn.classList.remove('hidden');
+      } catch (error) {
+        el.sheetsSyncBox.className = 'rounded-2xl border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-rose-50 border-rose-200';
+        el.syncIconWrapper.innerHTML =
+          '<svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">' +
+          '<path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />' +
+          '</svg>';
+        el.syncStatusTitle.textContent = 'Gagal Mengirim ke Google Spreadsheet';
+        el.syncStatusDesc.textContent = 'Periksa koneksi internet Anda, lalu klik Kirim Ulang atau unduh file CSV.';
+        el.retrySyncBtn.classList.remove('hidden');
+      }
+    }
+
+    /**
+     * 10. EXPORT CSV / EXCEL CADANGAN
+     */
+    function downloadResultCsv() {
+      if (!state.lastResultPayload) return;
+      const p = state.lastResultPayload;
+
+      const headers = [
+        'Waktu Kirim', 'Nama Siswa', 'Kelas', 'Durasi',
+        'Skor Bagian A (PG)', 'Skor Bagian B (PGK)', 'Total Benar', 'Nilai Akhir', 'Predikat'
+      ];
+      for (let i = 1; i <= 30; i++) headers.push('Soal ' + i);
+
+      const row = [
+        p.waktu, p.nama, p.kelas, p.durasi,
+        p.skorPG, p.skorPGK, p.totalBenar, p.nilaiAkhir, p.predikat
+      ].concat(p.rincianJawaban);
+
+      function escapeCsv(val) {
+        return '"' + String(val).replace(/"/g, '""') + '"';
+      }
+      const csvContent = '\uFEFF' + [headers.map(escapeCsv).join(','), row.map(escapeCsv).join(',')].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const safeName = p.nama.replace(/[^a-zA-Z0-9]/g, '_');
+      a.href = url;
+      a.download = 'Hasil_Numerasi_' + p.kelas + '_' + safeName + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('File CSV berhasil diunduh!');
+    }
+
+    /**
+     * 11. RENDER HALAMAN REVIEW & PEMBAHASAN
+     */
+    function renderReviewList() {
+      el.reviewListContainer.innerHTML = '';
+
+      QUESTIONS.forEach(function (q) {
+        const userAns = state.answers[q.id] || [];
+        const isCorrect = arraysEqualExact(userAns, q.correct);
+
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl border-2 p-5 sm:p-6 shadow-sm ' + (
+          isCorrect ? 'border-emerald-200' : 'border-rose-200'
+        );
+
+        const userStr = userAns.length > 0 ? userAns.join(', ') : 'Tidak dijawab';
+        const correctStr = q.correct.join(', ');
+
+        let optionsHtml = '';
+        Object.entries(q.options).forEach(function (entry) {
+          const key = entry[0];
+          const label = entry[1];
+          const isKeyCorrect = q.correct.includes(key);
+          const isKeySelected = userAns.includes(key);
+          let badgeStyle = 'bg-slate-100 text-slate-600';
+          let rowStyle = 'border-slate-100 bg-slate-50/50 text-slate-700';
+
+          if (isKeyCorrect) {
+            badgeStyle = 'bg-emerald-600 text-white';
+            rowStyle = 'border-emerald-300 bg-emerald-50/70 text-emerald-950 font-semibold';
+          } else if (isKeySelected && !isKeyCorrect) {
+            badgeStyle = 'bg-rose-600 text-white';
+            rowStyle = 'border-rose-300 bg-rose-50/70 text-rose-950';
+          }
+
+          optionsHtml +=
+            '<div class="flex items-start gap-2.5 p-2.5 rounded-xl border ' + rowStyle + ' text-xs sm:text-sm">' +
+            '<span class="w-6 h-6 rounded-md font-bold flex items-center justify-center shrink-0 ' + badgeStyle + '">' + key + '</span>' +
+            '<span class="pt-0.5 flex-1">' + label + '</span>' +
+            (isKeyCorrect ? '<span class="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Kunci</span>' : '') +
+            (isKeySelected && !isKeyCorrect ? '<span class="text-[11px] font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded">Pilihanmu</span>' : '') +
+            '</div>';
+        });
+
+        card.innerHTML =
+          '<div class="flex flex-wrap items-center justify-between gap-2 mb-3">' +
+          '<div class="flex items-center gap-2">' +
+          '<span class="px-3 py-1 rounded-lg bg-slate-800 text-white font-bold text-xs">No. ' + q.id + '</span>' +
+          '<span class="text-xs font-semibold text-slate-500">' + q.topic + '</span>' +
+          '</div>' +
+          '<span class="px-3 py-1 rounded-full text-xs font-extrabold ' + (isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800') + '">' +
+          (isCorrect ? '✓ Benar (1 Poin)' : '✕ Salah (0 Poin)') +
+          '</span>' +
+          '</div>' +
+          '<div class="text-sm sm:text-base text-slate-800 font-medium mb-4 leading-relaxed">' + q.text + '</div>' +
+          '<div class="svg-container bg-slate-50 border border-slate-200/70 rounded-xl p-3 mb-4 max-w-md mx-auto">' + (SVGs[q.id] || '') + '</div>' +
+          '<div class="space-y-2 mb-4">' + optionsHtml + '</div>' +
+          '<div class="bg-indigo-50/80 border border-indigo-100 rounded-xl p-3.5 text-xs sm:text-sm text-indigo-950 space-y-1">' +
+          '<div class="flex flex-wrap gap-4 font-semibold text-xs text-indigo-800 mb-1">' +
+          '<span>Jawaban Kamu: <strong>' + userStr + '</strong></span>' +
+          '<span>Kunci Jawaban: <strong>' + correctStr + '</strong></span>' +
+          '</div>' +
+          '<p><strong>Pembahasan:</strong> ' + q.explanation + '</p>' +
+          '</div>';
+
+        el.reviewListContainer.appendChild(card);
+      });
+    }
+
+    /**
+     * 12. EVENT LISTENERS & INISIALISASI
+     */
+    function openConfirmFinishModal() {
+      let answered = 0;
+      QUESTIONS.forEach(function (q) {
+        if (isQuestionAnswered(q.id)) answered++;
+      });
+      const unanswered = QUESTIONS.length - answered;
+
+      if (unanswered > 0) {
+        el.confirmModalTitle.textContent = 'Masih Ada ' + unanswered + ' Soal Belum Dijawab';
+        el.confirmModalBody.textContent = 'Kamu baru menjawab ' + answered + ' dari 30 soal. Apakah kamu yakin ingin menyelesaikan asesmen dan mengumpulkan jawaban sekarang?';
+      } else {
+        el.confirmModalTitle.textContent = 'Kumpulkan Semua Jawaban?';
+        el.confirmModalBody.textContent = 'Seluruh 30 soal sudah terjawab. Jawaban akan dikunci dan otomatis dikirim ke Google Spreadsheet.';
+      }
+      el.confirmModal.classList.remove('hidden');
+    }
+
+    function initApp() {
+      // Toggle Suara
+      el.soundToggleBtn.addEventListener('click', function () {
+        const isOn = SoundFX.toggle();
+        if (isOn) {
+          SoundFX.click();
+          el.soundOnIcon.classList.remove('hidden');
+          el.soundOffIcon.classList.add('hidden');
+          el.soundLabel.textContent = 'Suara';
+        } else {
+          el.soundOnIcon.classList.add('hidden');
+          el.soundOffIcon.classList.remove('hidden');
+          el.soundLabel.textContent = 'Bisu';
+        }
+      });
+
+      // Buka & Tutup Pop-Up Navigasi Soal
+      el.floatingNavBtn.addEventListener('click', openNavPopup);
+      el.closeNavPopupBtn.addEventListener('click', function () {
+        SoundFX.click();
+        closeNavPopup();
+      });
+      el.navPopupBackdrop.addEventListener('click', closeNavPopup);
+
+      // Tombol Selesai & Kumpulkan di Header
+      el.headerFinishBtn.addEventListener('click', function () {
+        SoundFX.click();
+        openConfirmFinishModal();
+      });
+
+      // Submit Form Identitas -> Mulai Kuis
+      el.studentStartForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        SoundFX.click();
+
+        const selectedClassRadio = document.querySelector('input[name="studentClassRadio"]:checked');
+        if (!selectedClassRadio) {
+          showToast('Silakan pilih kelas VIIIA atau VIIIB!');
+          return;
+        }
+
+        state.student = {
+          name: el.studentName.value.trim(),
+          kelas: selectedClassRadio.value
+        };
+        state.currentIndex = 0;
+        state.answers = {};
+        state.doubts = {};
+        state.isSubmitted = false;
+
+        el.displayStudentName.textContent = state.student.name;
+        el.displayStudentClass.textContent = state.student.kelas;
+
+        el.startScreen.classList.add('hidden');
+        el.quizScreen.classList.remove('hidden');
+
+        buildNavigationGrids();
+        renderCurrentQuestion();
+        startTimer();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Navigasi Soal
+      el.prevQuestionBtn.addEventListener('click', function () {
+        SoundFX.nav();
+        goToQuestion(state.currentIndex - 1);
+      });
+
+      el.nextQuestionBtn.addEventListener('click', function () {
+        SoundFX.nav();
+        if (state.currentIndex < QUESTIONS.length - 1) {
+          goToQuestion(state.currentIndex + 1);
+        } else {
+          openConfirmFinishModal();
+        }
+      });
+
+      // Checkbox Ragu-ragu
+      el.doubtCheckbox.addEventListener('change', function () {
+        SoundFX.click();
+        const q = QUESTIONS[state.currentIndex];
+        state.doubts[q.id] = el.doubtCheckbox.checked;
+        updateNavigationVisuals();
+      });
+
+      // Tombol Selesai & Kumpulkan di dalam Pop-up Navigasi
+      el.finishQuizBtn.addEventListener('click', function () {
+        SoundFX.click();
+        closeNavPopup();
+        openConfirmFinishModal();
+      });
+
+      el.confirmCancelBtn.addEventListener('click', function () {
+        SoundFX.click();
+        el.confirmModal.classList.add('hidden');
+      });
+
+      el.confirmOkBtn.addEventListener('click', function () {
+        el.confirmModal.classList.add('hidden');
+        finalizeAndSubmitQuiz();
+      });
+
+      // Kirim Ulang & Unduh CSV
+      el.retrySyncBtn.addEventListener('click', function () {
+        SoundFX.click();
+        if (state.lastResultPayload) {
+          sendResultToGoogleSheets(state.lastResultPayload);
+        }
+      });
+
+      el.downloadCsvBtn.addEventListener('click', function () {
+        SoundFX.click();
+        downloadResultCsv();
+      });
+
+      // Kembali ke Halaman Awal
+      el.backToHomeBtn.addEventListener('click', function () {
+        SoundFX.click();
+        el.resultScreen.classList.add('hidden');
+        el.startScreen.classList.remove('hidden');
+        el.studentName.value = '';
+        const checkedRadio = document.querySelector('input[name="studentClassRadio"]:checked');
+        if (checkedRadio) checkedRadio.checked = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
